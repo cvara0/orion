@@ -1,4 +1,4 @@
-export class Muscle{
+export class MuscleGroup{
 
     constructor(
         public id          : number,//ver si utilizar musculo individual o grupo

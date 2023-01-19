@@ -45,34 +45,41 @@
             </section>
 
             
-            <section class="container mt-lg">
-                <h2 style="text-align: center;">Mas ejercicios: 
-                    <div ngbDropdown class="d-inline-block">
-                        <button type="button" class="red-btn" id="dropdownBasic1" ngbDropdownToggle>
-                            Filtrar por
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                    <button ngbDropdownItem class="btn red-btn">Femenido</button>
-                                    <button ngbDropdownItem class="btn red-btn">Masculino</button>
-                                    <button ngbDropdownItem class="btn red-btn">Tren superior</button>
-                                    <button ngbDropdownItem class="btn red-btn">Tren inferior</button>
-                                    <button ngbDropdownItem class="btn red-btn">Calistenia</button>
-                                    <button ngbDropdownItem class="btn red-btn">Etc</button>
-                                    <button ngbDropdownItem class="btn red-btn">Etc</button>
-                                
-                        </div>
-                    </div>
+            <section class="container mt-xl">
+                <h2 style="text-align: center;">Mas ejercicios
+                    <button (click)="open(filterModal)"  type="button" class="btn red-btn">
+                        Filtrar
+                    </button> 
+                    <ng-template #filterModal let-modal>
+                        <button type="button" class="btn red-btn" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                            <label class="btn red-btn">
+                                <input type="checkbox">
+                                femenino
+                            </label>
+                            <label class="btn red-btn">
+                                <input type="checkbox" value="">
+                                Masculino
+                            </label>
+                            <label class="btn red-btn">
+                                <input type="checkbox" value="">
+                                Etc
+                            </label>
+                        <button class="btn red-btn">OK</button>
+                    </ng-template> 
                 </h2>
-            
-                <button class="btn red-btn">Espalda</button>
-                <button class="btn red-btn">Pecho</button>
-                <button class="btn red-btn">Pantorrilla</button>
-                <button class="btn red-btn">Espalda</button>
-                <button class="btn red-btn">Pecho</button>
-                <button class="btn red-btn">Pantorrilla</button>
-                <button class="btn red-btn">Espalda</button>
-                <button class="btn red-btn">Pecho</button>
-                <button class="btn red-btn">Gluteos</button>
+                
+                <div class="mt-lg">
+                    <button class="btn red-btn">Espalda</button>
+                    <button class="btn red-btn">Pecho</button>
+                    <button class="btn red-btn">Pantorrilla</button>
+                    <button class="btn red-btn">Espalda</button>
+                    <button class="btn red-btn">Pecho</button>
+                    <button class="btn red-btn">Pantorrilla</button>
+                    <button class="btn red-btn">Espalda</button>
+                    <button class="btn red-btn">Pecho</button>
+                    <button class="btn red-btn">Gluteos</button>
+                </div>
+                
 
                
             </section>
@@ -81,7 +88,7 @@
     </main>
  </div>
 
-
+ 
 
 
 
