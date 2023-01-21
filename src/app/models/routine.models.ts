@@ -1,8 +1,7 @@
 export class Routine{
 
     constructor(
-        public id                : number,
-        public excerciseIdList   : number[],
+        public excerciseList     : number[],
         public isReadyList       : boolean[],
         public lapsList          : number[]
         /*recordad que se iteran juntos */

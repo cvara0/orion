@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Exercise } from 'src/app/models/exercise.models';
+import { Student } from 'src/app/models/student.models';
+import { ExerciseService } from 'src/app/services/exercise.service';
+import { RoutineService } from 'src/app/services/routine.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +15,24 @@ export class HomeComponent implements OnInit {
 
   closeResult: string='';
 
-  constructor(private modalService: NgbModal) { }
+  exerciseList          : Exercise[];
+
+
+  
+  constructor(
+    private modalService: NgbModal,
+    public studentService:StudentService,
+    public routineService:RoutineService,
+    public exerciseService:ExerciseService
+    ) { 
+
+      this.exerciseService.getExerciseList();
+      this.exerciseList=[];
+      this.exerciseService.getExerciseList$().subscribe(exerciseList=>{//y aca finltro por id
+      this.exerciseList=exerciseList;
+      });
+     
+  }
 
   ngOnInit(): void {
   }
@@ -39,5 +61,7 @@ export class HomeComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  
 
 }

@@ -1,4 +1,5 @@
 <div class="home mt-lg mb-lg">
+
     <header class="row justify-content-center" style="margin-top: 2.5em;">
             <div class="mb-md col-12">
                 <img src="assets/img/orion_logo_256_2.png" class="mx-auto d-block red-border-box" style="width: 96px;height: 96px; border-radius: 50%;" alt="">
@@ -6,27 +7,21 @@
             </div>
             <h2 class="red-border-text text-title col-12" style="margin-top: .25em;">ORION CENTRO PERSONALIZADO</h2>
     </header>
-    <main class="row r" style="margin-top: 1.5em;">
-        
-        
-        
 
+    <app-navbar></app-navbar>
 
-        <div class="col-12">
-
-            <section class="container mt-lg">
-                <h2 style="text-align: center;">Como estas Fulano? Empecemos!, tu rutina de hoy:</h2>
-                <h3 class="btn red-btn">1. Abdominales</h3> 
-                <h3 class="btn red-btn">2. Fexiones de brazo</h3>
-                <h3 class="btn red-btn">3. Alternados</h3>
-                <h3 class="btn red-btn">4. Abdominales</h3>
-                <h3 class="btn red-btn">5. Ejercicio sfsdf</h3>
-                <h3 class="btn red-btn">6. Ejercicio hgfh</h3>
-                <h3 class="btn red-btn">7. Ejercicio fghgfh</h3>
-                <h3 class="btn red-btn">8. Ejercicio fghh</h3>
+    <main class="container" style="margin-top: 1.5em;">
+        
+            <section class="row justify-content-center mt-lg">
+                <h2 style="text-align: center;">Hola {{this.studentService.getStudentById(1)?.name}} , tu rutina de hoy:</h2>
+                <div *ngFor="let routine of this.routineService.getRoutineListByStudentId(1)">
+                    <div *ngFor="let exerciseId of routine.excerciseIdList;index as i" style="display: inline-block;">
+                        <button class="btn red-btn">{{i+1}} </button>
+                    </div> 
+                </div>
             </section>
 
-            <div class="row justify-content-center">
+            <section class="row justify-content-center mt-lg">
                 <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>
                 <div class="col-12" style="width: 810px;">
                     <div class="row justify-content-center">
@@ -35,17 +30,16 @@
                         <button class="red-btn col-5">listo!</button>
                     </div>
                 </div>    
-            </div>
+            </section>
 
-            <section class="container mt-lg">
+            <section class="row justify-content-center mt-lg">
                 <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
                 <iframe class="container" height="512px"
                     src="https://www.youtube.com/embed/azdwsXLmrHE">
                 </iframe>
             </section>
 
-            
-            <section class="container mt-xl">
+            <section class="row justify-content-center mt-xl">
                 <h2 style="text-align: center;">Mas ejercicios
                     <button (click)="open(filterModal)"  type="button" class="btn red-btn">
                         Filtrar
@@ -79,12 +73,8 @@
                     <button class="btn red-btn">Pecho</button>
                     <button class="btn red-btn">Gluteos</button>
                 </div>
-                
-
-               
             </section>
-        </div>
-    
+        
     </main>
  </div>
 

@@ -1,13 +1,14 @@
 export class Exercise{
 
     constructor(
-        public id                : number,
-        public muscleGroupIdList : number[],
-        public name              : string="",
-        public difficulty        : number,
-        public tipsUrl           : string="",
-        public imgUrl            : string="",
-        public gender            : string=""
+        
+        public muscleGroup       : string,
+        public name              : string,
+        public difficulty        : string,
+        public tipsUrl           : string,
+        public imgUrl            : string,
+        public gender            : string,
+        public id?               : string
     ){
 
     }

@@ -26,6 +26,10 @@
 .ml-md { margin-left: 1em; }
 .mr-md {margin-left: 1em; }
 .mlr-auto{margin-left: auto; margin-right: auto;}
+.h-md{height: 1em;}
+.h-lg{height: 2.5em;}
+.h-xl{height: 6em;}
+.h-xxl{height: 1em;}
 
 /*boton-rojo */
 .red-btn{
@@ -33,12 +37,12 @@
   color: whitesmoke;
   background-color: #000;
   border-radius: 5px;
-  border: orangered 3px solid;
+  border: orangered 2px solid;
   transition: 0.3s;
 }
 
 .red-btn:hover,:focus{
-  border: whitesmoke 3px solid;
+  border: whitesmoke 2px solid;
   background-color: #000;
 }
 

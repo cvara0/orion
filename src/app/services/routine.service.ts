@@ -9,7 +9,8 @@ export class RoutineService {
   routineList:Routine[];
 
   /*
-    public id                : number,
+        public id                : number,
+        public studentId         : number,
         public excerciseIdList   : number[],
         public isReadyList       : boolean[],
         public lapsList          : number[]
@@ -19,6 +20,7 @@ export class RoutineService {
     this.routineList=[
       new Routine(
         1,
+        1,
         [1,2,3],
         [false,false,false],
         [1,1,1]
@@ -26,4 +28,8 @@ export class RoutineService {
     ]
 
    }
+
+   getRoutineListByStudentId(id:number){
+    return this.routineList.filter(i=>i.studentId==id);
+  }
 }
