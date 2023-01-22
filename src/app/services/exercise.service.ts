@@ -43,7 +43,7 @@ private exerciseList$: Subject<Exercise[]>;
     //const exerciseJSON = JSON.stringify(exerciseToAdd);
     return this.http.post(`${this.url}/exercises.json`, exerciseToAdd).pipe(
       map((resp:any)=>{//la respuesta puede ser cualquier cosa, aqui lo dedcido yo
-        exerciseToAdd.id=resp.name;
+        //exerciseToAdd.id=resp.name;
         return exerciseToAdd;
       })
     );
@@ -57,17 +57,22 @@ private exerciseList$: Subject<Exercise[]>;
   }
 
 
+  getExerciseList1(){
+    return this.http.get(`${this.url}/exercises.json`);
+  }
+
   getExerciseList$(): Observable<Exercise[]>{
     return this.exerciseList$.asObservable();//esto permite desde afuera suscribirse y asi ver los cambios y recuperar los valores
   }
 
-  getExerciseList(){//userId:string|nullTodo mandar todos los get como path variable home/1 home/2 etc
-      return this.http.get(`${this.url}/exercises`)//(sessionStorage.getItem("userId")==null?'0':sessionStorage.getItem("userId"))
+  getExerciseList(){
+      return this.http.get(`${this.url}/exercises.json`)
       .pipe(
-        map(resp=>{
-          this.exerciseList=this.createExerciseList(resp);
-          this.exerciseList$.next(this.exerciseList);
-        })
+        map(this.createExerciseList
+          //resp=>{
+          //this.exerciseList=this.createExerciseList(resp);
+          //this.exerciseList$.next(this.exerciseList);}
+        )
       );
   }
 
@@ -76,6 +81,7 @@ private exerciseList$: Subject<Exercise[]>;
     if(exerciseListObj===null){return [];}
     Object.keys(exerciseListObj).forEach(i=>{
       const exc:Exercise=exerciseListObj[i];
+      exc.id=i;
       exerciseList.push(exc);
     })
     return exerciseList;

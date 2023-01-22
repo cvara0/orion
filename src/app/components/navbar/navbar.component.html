@@ -1,9 +1,9 @@
 <nav class="row justify-content-center mt-lg">
     <div>
-        <button (click)="open(editStudentModal)" class="btn red-btn">Editar mi perfil</button>
+        <button class="btn red-btn">Editar mi perfil</button>
         <button class="btn red-btn">AGREGAR ALUMNO</button>
         <a [routerLink]="['students']"class="btn red-btn">ALUMNOS</a>
-        <button (click)="open(addExerciseModal)" class="btn red-btn">AGREGAR EJERCICIO</button>
+       
         <a [routerLink]="['exercises']" class="btn red-btn">EJERCICIOS</a>
         <button class="btn red-btn">Crear rutina</button>
         <button class="btn red-btn">Ver rutinas</button>
@@ -49,37 +49,3 @@
         public id?               : string-->
 
 
-<ng-template #addExerciseModal let-modal>
-
-    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO</h3>
-      <form class="row" [formGroup]="addExerciseForm" (ngSubmit)="saveAddExercise()">
-        <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
-        
-        <select class="red-btn h-lg"  formControlName="exeMuscleGroup">
-            <option value="" selected disabled hidden>GRUPO MUSCULAR</option>
-            <option *ngFor="let muscleGroup of this.muscleGroupList">
-                {{muscleGroup}}
-            </option>
-        </select>
-
-        <input formControlName="exeName" class="red-btn h-lg" type="text" placeholder=" NOMBRE DE EJERCICIO">
-        <input formControlName="exeTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
-        <input formControlName="exeImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
-        
-        <select class="red-btn h-lg" formControlName="exeDifficulty">
-            <option value="" selected disabled hidden>DIFICULTAD</option>
-            <option *ngFor="let difficulty of this.difficultyList">
-                {{difficulty}}
-            </option>
-        </select>
-        
-        <select class="red-btn h-lg"  formControlName="exeGender">
-            <option value="" selected disabled hidden>GENERO</option>
-            <option *ngFor="let gender of this.genderList">
-                {{gender}}
-            </option>
-        </select>
-
-        <button *ngIf="(!validExeName && !validExeTipsUrl && !validExeImgUrl && validExeMuscleGroup && validExeDifficulty && validExeGender)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
-    </form>
-</ng-template> 
