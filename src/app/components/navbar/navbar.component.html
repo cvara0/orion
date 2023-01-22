@@ -2,9 +2,9 @@
     <div>
         <button (click)="open(editStudentModal)" class="btn red-btn">Editar mi perfil</button>
         <button class="btn red-btn">AGREGAR ALUMNO</button>
-        <button class="btn red-btn">Ver alumnos</button>
+        <a [routerLink]="['students']"class="btn red-btn">ALUMNOS</a>
         <button (click)="open(addExerciseModal)" class="btn red-btn">AGREGAR EJERCICIO</button>
-        <button class="btn red-btn">Ver ejercicios</button>
+        <a [routerLink]="['exercises']" class="btn red-btn">EJERCICIOS</a>
         <button class="btn red-btn">Crear rutina</button>
         <button class="btn red-btn">Ver rutinas</button>
     </div>
@@ -47,6 +47,8 @@
         public imgUrl            : string="",
         public gender            : string="",
         public id?               : string-->
+
+
 <ng-template #addExerciseModal let-modal>
 
     <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO</h3>

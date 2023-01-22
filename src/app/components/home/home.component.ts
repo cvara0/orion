@@ -8,8 +8,7 @@ import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 

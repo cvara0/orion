@@ -5,14 +5,18 @@ import { AppComponent } from './app.component';
 import { APP_ROUTING } from './app.routes';
 import { HomeComponent } from './components/home/home.component';
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavbarComponent } from './components/navbar-comp/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExercisesComponent } from './components/exercises/exercises.component';
+import { StudentsComponent } from './components/students/students.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ExercisesComponent,
+    StudentsComponent
   ],
   imports: [
     FormsModule,

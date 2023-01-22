@@ -17,19 +17,11 @@ export class RoutineService {
   */
   constructor() {
 
-    this.routineList=[
-      new Routine(
-        1,
-        1,
-        [1,2,3],
-        [false,false,false],
-        [1,1,1]
-      )
-    ]
+    this.routineList=[]
 
    }
 
    getRoutineListByStudentId(id:number){
-    return this.routineList.filter(i=>i.studentId==id);
+    //return this.routineList.filter(i=>i.studentId==id);
   }
 }

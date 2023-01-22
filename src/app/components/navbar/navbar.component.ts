@@ -36,9 +36,6 @@ export class NavbarComponent implements OnInit {
     this.createAddExerciseForm();
   }
 
-
-
-
   createAddExerciseForm(){
   
     this.addExerciseForm=this.formBuilder.group({
