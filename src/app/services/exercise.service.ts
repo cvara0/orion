@@ -53,7 +53,9 @@ private exerciseList$: Subject<Exercise[]>;
 
 
   putExercise(exerciseToEdit:Exercise){
-    return this.http.put(`${this.url}/exercises/${exerciseToEdit.id}.json`,exerciseToEdit);
+    const exerciseTemp={...exerciseToEdit};
+    delete exerciseTemp.id;
+    return this.http.put(`${this.url}/exercises/${exerciseToEdit.id}.json`,exerciseTemp);
   }
 
 
