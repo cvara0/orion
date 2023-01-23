@@ -16,11 +16,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let exercise of this.exerciseList">
+          <tr *ngFor="let exercise of this.exerciseList;let i = index">
             <!--<th scope="row" [textContent]=exercise.id></th>-->
             <td > 
                 <button (click)="this.exerciseToEdit=exercise;this.createEditExerciseForm();open(editExerciseModal)" class="btn red-btn">E</button> 
-                <button (click)="this.deleteExercise()" class="btn red-btn ml-sm">X</button>
+                <button (click)="this.deleteExercise(exercise,i)" class="btn red-btn ml-sm">X</button>
             </td>
             <td [textContent]=exercise.name></td>
             <td [textContent]=exercise.muscleGroup></td>

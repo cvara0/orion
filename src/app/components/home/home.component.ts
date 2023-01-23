@@ -3,7 +3,6 @@ import { ModalDismissReasons, NgbDropdownModule, NgbModal } from '@ng-bootstrap/
 import { Exercise } from 'src/app/models/exercise.models';
 import { Student } from 'src/app/models/student.models';
 import { ExerciseService } from 'src/app/services/exercise.service';
-import { RoutineService } from 'src/app/services/routine.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public studentService:StudentService,
-    public routineService:RoutineService,
     public exerciseService:ExerciseService
     ) { 
 

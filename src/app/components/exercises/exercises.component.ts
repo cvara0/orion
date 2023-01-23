@@ -95,8 +95,7 @@ export class ExercisesComponent implements OnInit {
         this.addExerciseForm.get('exeToAddDifficulty')?.value,
         this.addExerciseForm.get('exeToAddTipsUrl')?.value,
         this.addExerciseForm.get('exeToAddImgUrl')?.value,
-        this.addExerciseForm.get('exeToAddGender')?.value,
-       
+        this.addExerciseForm.get('exeToAddGender')?.value
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -158,14 +157,25 @@ saveEditExercise(){
 
 ///////////////////////////////////////////////////////////////////
 getExercises(){
-  this.exerciseService.getExerciseList().subscribe(resp=>console.log(resp));
+  this.exerciseService.getExerciseList().subscribe();
 }
 
 ///////////////////////////////////////////////////////////////////
 
-deleteExercise(){
+deleteExercise(exerciseToDelete:Exercise,i:number){
+  this.isLoading=true;
+    if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
+      this.exerciseService.deleteExercise(exerciseToDelete).subscribe(resp=>{
+        this.isLoading=false;
+        location.reload();});;
+     
+    
+   
+  }else
+    this.isLoading=false;
+  }
   
-}
+
 
 ///////////////////////////////////////////////////////////////////
   open(content:any) {

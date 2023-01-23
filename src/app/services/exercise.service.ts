@@ -11,7 +11,6 @@ export class ExerciseService {
   private url;
 
 exerciseList: Exercise[];
-private exerciseList$: Subject<Exercise[]>;
 
 
 
@@ -29,18 +28,10 @@ private exerciseList$: Subject<Exercise[]>;
 
     this.url="https://orion-centro-personalizado-default-rtdb.firebaseio.com";
     this.exerciseList=[];
-    this.exerciseList$=new Subject();
-
-    this.exerciseList=[];
   }
-
-  /*getExerciseById(id:number){
-    return this.excersiceList.find(i=>i.id==id);
-  }*/
 
 
   postExercise(exerciseToAdd:Exercise){
-    //const exerciseJSON = JSON.stringify(exerciseToAdd);
     return this.http.post(`${this.url}/exercises.json`, exerciseToAdd).pipe(
       map((resp:any)=>{//la respuesta puede ser cualquier cosa, aqui lo dedcido yo
         //exerciseToAdd.id=resp.name;
@@ -63,18 +54,11 @@ private exerciseList$: Subject<Exercise[]>;
     return this.http.get(`${this.url}/exercises.json`);
   }
 
-  getExerciseList$(): Observable<Exercise[]>{
-    return this.exerciseList$.asObservable();//esto permite desde afuera suscribirse y asi ver los cambios y recuperar los valores
-  }
 
   getExerciseList(){
       return this.http.get(`${this.url}/exercises.json`)
       .pipe(
-        map(this.createExerciseList
-          //resp=>{
-          //this.exerciseList=this.createExerciseList(resp);
-          //this.exerciseList$.next(this.exerciseList);}
-        )
+        map(this.createExerciseList)
       );
   }
 
@@ -92,7 +76,7 @@ private exerciseList$: Subject<Exercise[]>;
   
   deleteExercise(exerciseToDelete:Exercise){
 
-    return this.http.delete(`${this.url}/exercises/${exerciseToDelete.id}`);
+    return this.http.delete(`${this.url}/exercises/${exerciseToDelete.id}.json`);
   }
 
 
