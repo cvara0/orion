@@ -6,7 +6,7 @@ export class Student{
         public name               : string,
         public surname            : string,
         public weight             : number,
-        public age                : number,
+        public age                : string,
         public gender             : string,
         public level              : string,
         public sport              : string,
@@ -15,9 +15,9 @@ export class Student{
         public limitation         : string,
         public prescription       : string,
         public phone              : number,
-        public coment?            : string,
-        public pexerciseIdList?   : string[],
+        public coment             : string,
         public id?                : string
+        
     ){
 
     }

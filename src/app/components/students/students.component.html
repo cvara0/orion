@@ -1,17 +1,108 @@
-<table>
-    <tr>
-      <th>Person 1</th>
-      <th>Person 2</th>
-      <th>Person 3</th>
-    </tr>
-    <tr>
-      <td>Emil</td>
-      <td>Tobias</td>
-      <td>Linus</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>14</td>
-      <td>10</td>
-    </tr>
-  </table>
+<section class="container mt-lg">
+  <h2 class="text-title">ALUMNOS <button (click)="open(addStudentModal)" class="btn red-btn">+</button></h2>
+  
+  <div class="table-responsive mt-md">
+     <table class="table table-dark">
+         <thead>
+           <tr>
+             <th scope="col">ACCIONES</th>
+             <th scope="col">NOMBRE</th>
+             <th scope="col">APELLIDO</th>
+             <th scope="col">EDAD</th>
+             
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let student of this.studentList;let i = index">
+             <!--<th scope="row" [textContent]=exercise.id></th>-->
+             <td> 
+                  <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
+                  <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn">E</button> 
+                  <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">VER</button>
+              </td>
+             <td [textContent]=student.name></td>
+             <td [textContent]=student.surname></td>
+             <td [textContent]=student.age></td>
+           </tr>
+         
+         </tbody>
+       </table>
+     </div>
+ </section>
+ <!--
+
+            
+       
+        
+           
+       
+         
+         
+    
+          
+    
+  
+stuToAddPhone         
+stuToAddComent        
+
+ -->
+  <ng-template #addStudentModal let-modal>
+     <h3 class="text-title" style="background-color: black;">AGREGANDO ALUMNO</h3>
+       <form class="row" [formGroup]="addStudentForm" (ngSubmit)="saveAddStudent()">
+         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+         
+         <input formControlName="stuToAddName" class="red-btn h-lg" type="text" placeholder=" nombre/s">
+         <input formControlName="stuToAddSurname" class="red-btn h-lg" type="text" placeholder=" apellido/s">
+         <input formControlName="stuToAddWeight" class="red-btn h-lg" type="text" placeholder=" peso">
+         <input formControlName="stuToAddAge" class="red-btn h-lg" type="date" placeholder=" fecha de nacimiento">
+         <input formControlName="stuToAddGender" class="red-btn h-lg" type="text" placeholder=" genero">
+
+         <select class="red-btn h-lg" formControlName="stuToAddLevel">
+             <option value="" selected disabled hidden>experiencia en gimnasios</option>
+             <option *ngFor="let level of this.levelList">
+                 {{level}}
+             </option>
+         </select>
+         
+         <input formControlName="stuToAddProfession" class="red-btn h-lg" type="text" placeholder=" profesion">
+         <input formControlName="stuToAddDrug" class="red-btn h-lg" type="text" placeholder=" drogas o medicamentos">
+         <input formControlName="stuToAddLimitation" class="red-btn h-lg" type="text" placeholder=" limitaciones fisicas">
+         <input formControlName="stuToAddPrescription" class="red-btn h-lg" type="text" placeholder=" prescripciones medicas">
+         <input formControlName="stuToAddGender" class="red-btn h-lg" type="text" placeholder=" genero">
+
+         <input formControlName="stuToAddSport" class="red-btn h-lg" type="text" placeholder=" PRACTICA ALGUN DEPORTE?">
+      
+<!--seguir ver atributos del alumno agregar modal para ver alumno-->
+
+         <button *ngIf="(!validExeToAddName && !validExeToAddTipsUrl && !validExeToAddImgUrl && validExeToAddMuscleGroup && validExeToAddDifficulty && validExeToAddGender)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+     </form>
+ </ng-template> 
+ 
+ <ng-template #editExerciseModal let-modal>
+     <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO {{this.exerciseToEdit.name}}</h3>
+       <form class="row" [formGroup]="editExerciseForm" (ngSubmit)="saveEditExercise()">
+         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+         <select class="red-btn h-lg" formControlName="exeToEditMuscleGroup">
+             <option selected disabled hidden>GRUPO MUSCULAR</option>
+             <option *ngFor="let muscleGroup of this.muscleGroupList">
+                 {{muscleGroup}}
+             </option>
+         </select>
+         <input formControlName="exeToEditName" class="red-btn h-lg" type="text">
+         <input formControlName="exeToEditTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
+         <input formControlName="exeToEditImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
+         <select class="red-btn h-lg" formControlName="exeDifficulty">
+             <option value="" selected disabled hidden>DIFICULTAD</option>
+             <option *ngFor="let difficulty of this.difficultyList">
+                 {{difficulty}}
+             </option>
+         </select>
+         <select class="red-btn h-lg"  formControlName="exeToEditGender">
+             <option value="" selected disabled hidden>GENERO</option>
+             <option *ngFor="let gender of this.genderList">
+                 {{gender}}
+             </option>
+         </select>
+         <button *ngIf="(!validExeToEditName && !validExeToEditTipsUrl && !validExeToEditImgUrl)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+     </form>
+ </ng-template> 

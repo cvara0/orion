@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from 'src/app/models/student.models';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -18,7 +18,7 @@ export class StudentsComponent implements OnInit {
 
   studentList        :Student[];
 
-  StudentToEdit!:Student;
+  studentToEdit!:Student;
 
   levelList          :string[];
 
@@ -44,24 +44,7 @@ export class StudentsComponent implements OnInit {
 
    ////////////////////////////////////////////////////////////////
   createAddStudentForm(){
-  /*
-          public name?               : string,
-        public surname?            : string,
-        public weight?             : number,
-        public age?                : number,
-        public gender?             : string,
-        public level?              : string,
-        public sport?              : string,
-        public profession?         : string,
-        public drug?               : string,
-        public limitation?         : string,
-        public prescription?       : string,
-        public phone?              : number,
-        public coment?             : string,
-        public pexerciseIdList?    : string[],
-        public id?                 : string
   
-  */
     this.addStudentForm=this.formBuilder.group({
 
       stuToAddName             : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
@@ -146,7 +129,8 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddLimitation')?.value,
         this.addStudentForm.get('stuToAddPrescription')?.value,
         this.addStudentForm.get('stuToAddPhone')?.value,
-        this.addStudentForm.get('stuToAddComent')?.value
+        this.addStudentForm.get('stuToAddComent')?.value,
+    
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -154,71 +138,113 @@ export class StudentsComponent implements OnInit {
     this.addStudentForm.reset();
   }
 
-  // todo seguir aca y agregar elementos a exercise 
  ////////////////////////////////////////////////////////////////
-  createEditExerciseForm(){
-  
-    this.editExerciseForm=this.formBuilder.group({
-      exeToEditMuscleGroup  : [this.exerciseToEdit.muscleGroup,[Validators.required]],//primera posicion valor por defecto, segunda, validadores sincronos, tercera validadores asincronos
-      exeToEditName         : [this.exerciseToEdit.name,[Validators.required]],
-      exeToEditDifficulty   : [this.exerciseToEdit.difficulty,[Validators.required]],
-      exeToEditTipsUrl      : [this.exerciseToEdit.tipsUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
-      exeToEditImgUrl       : [this.exerciseToEdit.imgUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
-      exeToEditGender       : [this.exerciseToEdit.gender,[Validators.required]],
+  createEditStudentForm(){
+    this.editStudentForm=this.formBuilder.group({
+
+      stuToEditName             : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
+      stuToEditSurname          : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
+      stuToEditWeight           : ['',[Validators.required]],
+      stuToEditAge              : ['',[Validators.required]],
+      stuToEditGender           : ['',[Validators.required]],
+      stuToEditLevel            : ['',[Validators.required]],
+      stuToEditSport            : ['',[Validators.required]],
+      stuToEditProfession       : ['',[Validators.required]],
+      stuToEditDrug             : ['',[Validators.required]],
+      stuToEditLimitation       : ['',[Validators.required]],
+      stuToEditPrescription     : ['',[Validators.required]],
+      stuToEditPhone            : ['',[Validators.required]],
+      stuToEditComent           : ['',[Validators.required]],
+      
     });
   }
-  get validExeToEditMuscleGroup(){
-    return this.editExerciseForm.get('exeToEditMuscleGroup')?.dirty;
+  get validStuToEditName(){
+    return this.editStudentForm.get('stuToEditName')?.invalid;
   }
 
-  get validExeToEditName(){
-    return this.editExerciseForm.get('exeToEditName')?.invalid;
+  get validStuToEditSurname(){
+    return this.editStudentForm.get('stuToEditSurname')?.invalid;
   }
 
-  get validExeToEditDifficulty(){
-    return this.editExerciseForm.get('exeToEditDifficulty')?.dirty;
+  get validStuToEditWeight(){
+    return this.editStudentForm.get('stuToEditWeight')?.invalid;
   }
 
-  get validExeToEditTipsUrl(){
-    return this.editExerciseForm.get('exeToEditTipsUrl')?.invalid;
+  get validStuToEditAge(){
+    return this.editStudentForm.get('stuToEditAge')?.invalid;
   }
-  get validExeToEditImgUrl(){
-    return this.editExerciseForm.get('exeToEditImgUrl')?.invalid;
-  }
-  get validExeToEditGender(){
-    return this.editExerciseForm.get('exeToEditGender')?.dirty;
-  }
- 
-saveEditExercise(){
 
-  this.isLoading=true;
-  
-  this.exerciseService.putExercise(
-    new Exercise(
-      this.editExerciseForm.get('exeToEditMuscleGroup')?.value,
-      this.editExerciseForm.get('exeToEditName')?.value,
-      this.editExerciseForm.get('exeToEditDifficulty')?.value,
-      this.editExerciseForm.get('exeToEditTipsUrl')?.value,
-      this.editExerciseForm.get('exeToEditImgUrl')?.value,
-      this.editExerciseForm.get('exeToEditGender')?.value,
-      this.exerciseToEdit.id
-    )
-  ).subscribe(resp=>{
-    this.isLoading=false;
-    location.reload();}); 
+  get validStuToEditGender(){
+    return this.editStudentForm.get('stuToEditGender')?.invalid;
+  }
+
+  get validStuToEditLevel(){
+    return this.editStudentForm.get('stuToEditLevel')?.dirty;
+  }
+
+  get validStuToEditSport(){
+    return this.editStudentForm.get('stuToEditSport')?.invalid;
+  }
+
+  get validStuToEditLimitation(){
+    return this.editStudentForm.get('stuToEditLimitation')?.invalid;
+  }
+
+  get validStuToEditDrug(){
+    return this.editStudentForm.get('stuToEditDrug')?.invalid;
+  }
+
+  get validStuToEditPrescription(){
+    return this.editStudentForm.get('stuToEditPrescription')?.invalid;
+  }
+
+  get validStuToEditPhone(){
+    return this.editStudentForm.get('stuToEditPhone')?.invalid;
+  }
+
+  get validStuToEditComent(){
+    return this.editStudentForm.get('stuToEditComent')?.invalid;
+  }
+
+
+  saveEditStudent(){
+
+    this.isLoading=true;
+    
+    this.studentService.putStudent(
+      new Student(
+        this.addStudentForm.get('stuToEditName')?.value,
+        this.addStudentForm.get('stuToEditSurname')?.value,
+        this.addStudentForm.get('stuToEditWeight')?.value,
+        this.addStudentForm.get('stuToEditAge')?.value,
+        this.addStudentForm.get('stuToEditGender')?.value,
+        this.addStudentForm.get('stuToEditLevel')?.value,
+        this.addStudentForm.get('stuToEditSport')?.value,
+        this.addStudentForm.get('stuToEditProfession')?.value,
+        this.addStudentForm.get('stuToEditDrug')?.value,
+        this.addStudentForm.get('stuToEditLimitation')?.value,
+        this.addStudentForm.get('stuToEditPrescription')?.value,
+        this.addStudentForm.get('stuToEditPhone')?.value,
+        this.addStudentForm.get('stuToEditComent')?.value,
+        this.studentToEdit.id
+      )
+    ).subscribe(resp=>{
+      this.isLoading=false;
+      location.reload();}); 
+    this.addStudentForm.reset();
+  }
+
+///////////////////////////////////////////////////////////////////
+getStudents(){
+  this.studentService.getStudentList().subscribe();
 }
 
 ///////////////////////////////////////////////////////////////////
-getExercises(){
-  this.exerciseService.getExerciseList().subscribe();
-}
 
-///////////////////////////////////////////////////////////////////
-
-deleteExercise(exerciseToDelete:Exercise,i:number){
+deleteStudent(studentToDelete:Student,i:number){
   this.isLoading=true;
-    if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
-      this.exerciseService.deleteExercise(exerciseToDelete).subscribe(resp=>{
+    if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
+      this.studentService.deleteStudent(studentToDelete).subscribe(resp=>{
         this.isLoading=false;
         location.reload();});;
      
