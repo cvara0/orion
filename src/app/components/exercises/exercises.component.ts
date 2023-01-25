@@ -21,6 +21,7 @@ export class ExercisesComponent implements OnInit {
   exerciseToEdit!:Exercise;
 
   muscleGroupList    :string[];
+  elementList        :string[];
   difficultyList     :string[];
   genderList         :string[];
 
@@ -35,6 +36,13 @@ export class ExercisesComponent implements OnInit {
       "antebrazos",
       "espalda",
       "abdominales",
+      "etc",
+    ];
+    this.elementList=[
+      "MANCUERNAS",
+      "BARRAS",
+      "PESAS RUSAS",
+      "NADA",
       "etc",
     ];
     this.difficultyList=['MUY FACIL','FACIL','MEDIA','DIFICIL','MUY DIFICIL'];
@@ -60,6 +68,7 @@ export class ExercisesComponent implements OnInit {
       exeToAddTipsUrl      : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToAddImgUrl       : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToAddGender       : ['',[Validators.required]],
+      exeToAddElement      : ['',[Validators.required]],
     });
   }
   get validExeToAddMuscleGroup(){
@@ -83,11 +92,14 @@ export class ExercisesComponent implements OnInit {
   get validExeToAddGender(){
     return this.addExerciseForm.get('exeToAddGender')?.dirty;
   }
+  get validExeToAddElement(){
+    return this.addExerciseForm.get('exeToAddElement')?.dirty;
+  }
+  
 
   saveAddExercise(){
 
     this.isLoading=true;
-    
     this.exerciseService.postExercise(
       new Exercise(
         this.addExerciseForm.get('exeToAddMuscleGroup')?.value,
@@ -95,7 +107,8 @@ export class ExercisesComponent implements OnInit {
         this.addExerciseForm.get('exeToAddDifficulty')?.value,
         this.addExerciseForm.get('exeToAddTipsUrl')?.value,
         this.addExerciseForm.get('exeToAddImgUrl')?.value,
-        this.addExerciseForm.get('exeToAddGender')?.value
+        this.addExerciseForm.get('exeToAddGender')?.value,
+        this.addExerciseForm.get('exeToAddElement')?.value
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -135,6 +148,9 @@ export class ExercisesComponent implements OnInit {
   get validExeToEditGender(){
     return this.editExerciseForm.get('exeToEditGender')?.dirty;
   }
+  get validExeToEditElement(){
+    return this.editExerciseForm.get('exeToEditElement')?.dirty;
+  }
  
 saveEditExercise(){
 
@@ -148,6 +164,7 @@ saveEditExercise(){
       this.editExerciseForm.get('exeToEditTipsUrl')?.value,
       this.editExerciseForm.get('exeToEditImgUrl')?.value,
       this.editExerciseForm.get('exeToEditGender')?.value,
+      this.editExerciseForm.get('exeToEditElement')?.value,
       this.exerciseToEdit.id
     )
   ).subscribe(resp=>{

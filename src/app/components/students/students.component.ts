@@ -19,6 +19,7 @@ export class StudentsComponent implements OnInit {
   studentList        :Student[];
 
   studentToEdit!:Student;
+  studentToView!:Student;
 
   levelList          :string[];
 
@@ -79,7 +80,7 @@ export class StudentsComponent implements OnInit {
   }
 
   get validStuToAddGender(){
-    return this.addStudentForm.get('stuToAddGender')?.invalid;
+    return this.addStudentForm.get('stuToAddGender')?.dirty;
   }
 
   get validStuToAddLevel(){
@@ -88,6 +89,10 @@ export class StudentsComponent implements OnInit {
 
   get validStuToAddSport(){
     return this.addStudentForm.get('stuToAddSport')?.invalid;
+  }
+
+  get validStuToAddProfession(){
+    return this.addStudentForm.get('stuToAddProfession')?.invalid;
   }
 
   get validStuToAddLimitation(){
@@ -142,19 +147,19 @@ export class StudentsComponent implements OnInit {
   createEditStudentForm(){
     this.editStudentForm=this.formBuilder.group({
 
-      stuToEditName             : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
-      stuToEditSurname          : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
-      stuToEditWeight           : ['',[Validators.required]],
-      stuToEditAge              : ['',[Validators.required]],
-      stuToEditGender           : ['',[Validators.required]],
-      stuToEditLevel            : ['',[Validators.required]],
-      stuToEditSport            : ['',[Validators.required]],
-      stuToEditProfession       : ['',[Validators.required]],
-      stuToEditDrug             : ['',[Validators.required]],
-      stuToEditLimitation       : ['',[Validators.required]],
-      stuToEditPrescription     : ['',[Validators.required]],
-      stuToEditPhone            : ['',[Validators.required]],
-      stuToEditComent           : ['',[Validators.required]],
+      stuToEditName             : [this.studentToEdit.name,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
+      stuToEditSurname          : [this.studentToEdit.surname,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
+      stuToEditWeight           : [this.studentToEdit.weight,[Validators.required]],
+      stuToEditAge              : [this.studentToEdit.age,[Validators.required]],
+      stuToEditGender           : [this.studentToEdit.gender,[Validators.required]],
+      stuToEditLevel            : [this.studentToEdit.level,[Validators.required]],
+      stuToEditSport            : [this.studentToEdit.sport,[Validators.required]],
+      stuToEditProfession       : [this.studentToEdit.profession,[Validators.required]],
+      stuToEditDrug             : [this.studentToEdit.drug,[Validators.required]],
+      stuToEditLimitation       : [this.studentToEdit.limitation,[Validators.required]],
+      stuToEditPrescription     : [this.studentToEdit.prescription,[Validators.required]],
+      stuToEditPhone            : [this.studentToEdit.phone,[Validators.required]],
+      stuToEditComent           : [this.studentToEdit.coment,[Validators.required]],
       
     });
   }
@@ -174,16 +179,13 @@ export class StudentsComponent implements OnInit {
     return this.editStudentForm.get('stuToEditAge')?.invalid;
   }
 
-  get validStuToEditGender(){
-    return this.editStudentForm.get('stuToEditGender')?.invalid;
-  }
-
-  get validStuToEditLevel(){
-    return this.editStudentForm.get('stuToEditLevel')?.dirty;
-  }
 
   get validStuToEditSport(){
     return this.editStudentForm.get('stuToEditSport')?.invalid;
+  }
+
+  get validStuToEditProfession(){
+    return this.addStudentForm.get('stuToEditProfession')?.invalid;
   }
 
   get validStuToEditLimitation(){
@@ -213,19 +215,19 @@ export class StudentsComponent implements OnInit {
     
     this.studentService.putStudent(
       new Student(
-        this.addStudentForm.get('stuToEditName')?.value,
-        this.addStudentForm.get('stuToEditSurname')?.value,
-        this.addStudentForm.get('stuToEditWeight')?.value,
-        this.addStudentForm.get('stuToEditAge')?.value,
-        this.addStudentForm.get('stuToEditGender')?.value,
-        this.addStudentForm.get('stuToEditLevel')?.value,
-        this.addStudentForm.get('stuToEditSport')?.value,
-        this.addStudentForm.get('stuToEditProfession')?.value,
-        this.addStudentForm.get('stuToEditDrug')?.value,
-        this.addStudentForm.get('stuToEditLimitation')?.value,
-        this.addStudentForm.get('stuToEditPrescription')?.value,
-        this.addStudentForm.get('stuToEditPhone')?.value,
-        this.addStudentForm.get('stuToEditComent')?.value,
+        this.editStudentForm.get('stuToEditName')?.value,
+        this.editStudentForm.get('stuToEditSurname')?.value,
+        this.editStudentForm.get('stuToEditWeight')?.value,
+        this.editStudentForm.get('stuToEditAge')?.value,
+        this.editStudentForm.get('stuToEditGender')?.value,
+        this.editStudentForm.get('stuToEditLevel')?.value,
+        this.editStudentForm.get('stuToEditSport')?.value,
+        this.editStudentForm.get('stuToEditProfession')?.value,
+        this.editStudentForm.get('stuToEditDrug')?.value,
+        this.editStudentForm.get('stuToEditLimitation')?.value,
+        this.editStudentForm.get('stuToEditPrescription')?.value,
+        this.editStudentForm.get('stuToEditPhone')?.value,
+        this.editStudentForm.get('stuToEditComent')?.value,
         this.studentToEdit.id
       )
     ).subscribe(resp=>{

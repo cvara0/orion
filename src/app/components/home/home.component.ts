@@ -25,10 +25,7 @@ export class HomeComponent implements OnInit {
 
       this.exerciseService.getExerciseList();
       this.exerciseList=[];
-      this.exerciseService.getExerciseList$().subscribe(exerciseList=>{//y aca finltro por id
-      this.exerciseList=exerciseList;
-      });
-     
+      
   }
 
   ngOnInit(): void {

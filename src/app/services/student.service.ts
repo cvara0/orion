@@ -11,7 +11,6 @@ export class StudentService {
   private url;
 
   studentList: Student[];
-  private studentList$: Subject<Exercise[]>;
   
   
   

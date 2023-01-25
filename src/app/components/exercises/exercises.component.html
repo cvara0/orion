@@ -60,7 +60,20 @@
                 {{gender}}
             </option>
         </select>
-        <button *ngIf="(!validExeToAddName && !validExeToAddTipsUrl && !validExeToAddImgUrl && validExeToAddMuscleGroup && validExeToAddDifficulty && validExeToAddGender)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+        <select class="red-btn h-lg"  formControlName="exeToAddElement">
+            <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
+            <option *ngFor="let element of this.elementList">
+                {{element}}
+            </option>
+        </select>
+        <button *ngIf="(
+            !validExeToAddName 
+            && !validExeToAddTipsUrl 
+            && !validExeToAddImgUrl 
+            && validExeToAddMuscleGroup 
+            && validExeToAddDifficulty 
+            && validExeToAddGender 
+            && validExeToAddElement)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 
 
@@ -89,6 +102,14 @@
                 {{gender}}
             </option>
         </select>
+
+        <select class="red-btn h-lg"  formControlName="exeToEditElement">
+            <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
+            <option *ngFor="let element of this.elementList">
+                {{element}}
+            </option>
+        </select>
+
         <button *ngIf="(!validExeToEditName && !validExeToEditTipsUrl && !validExeToEditImgUrl)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 

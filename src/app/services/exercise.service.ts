@@ -33,13 +33,10 @@ exerciseList: Exercise[];
 
   postExercise(exerciseToAdd:Exercise){
     return this.http.post(`${this.url}/exercises.json`, exerciseToAdd).pipe(
-      map((resp:any)=>{//la respuesta puede ser cualquier cosa, aqui lo dedcido yo
-        //exerciseToAdd.id=resp.name;
+      map((resp:any)=>{
         return exerciseToAdd;
       })
     );
-
-    /* map transforma lo que un observable puede regresar o bien una peticion http */
   }
 
 
@@ -47,11 +44,6 @@ exerciseList: Exercise[];
     const exerciseTemp={...exerciseToEdit};
     delete exerciseTemp.id;
     return this.http.put(`${this.url}/exercises/${exerciseToEdit.id}.json`,exerciseTemp);
-  }
-
-
-  getExerciseList1(){
-    return this.http.get(`${this.url}/exercises.json`);
   }
 
 
