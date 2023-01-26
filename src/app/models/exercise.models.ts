@@ -9,6 +9,7 @@ export class Exercise{
         public imgUrl            : string,
         public gender            : string,
         public element           : string,
+        public commonErrors      : string,//agregar
         public id?               : string
     ){
 

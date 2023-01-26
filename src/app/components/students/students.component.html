@@ -19,7 +19,7 @@
                   <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
                   <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn">E</button> 
                   <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
-                  <button class="btn red-btn ml-sm">VER RUTINA</button>
+                  <a [routerLink]="['/routines',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
               </td>
              <td [textContent]=student.name></td>
              <td [textContent]=student.surname></td>
@@ -139,7 +139,9 @@
     <h5> limitacines: {{this.studentToView.limitation}}</h5>
     <h5> prescripcion medica: {{this.studentToView.prescription}}</h5>
     <h5> telefono: {{this.studentToView.phone}}</h5>
-
+    <button [routerLink]="['routine']" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</button>
+    <button class="btn red-btn ml-sm">ASIGNAR RUTINA</button>
+     <!--asignar o ver rutina segun sea el caso-->
   </div>
      
 </ng-template> 

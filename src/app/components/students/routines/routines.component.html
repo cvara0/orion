@@ -1,0 +1,42 @@
+<h1 class="text-title">holaaa</h1>
+
+ <div *ngFor="let exercise of this.routineListByStudentId;let i = index">
+    <h1 [textContent]="exercise.id"></h1>
+ </div>
+
+ <!--<section class="container mt-lg">
+    <h2 class="text-title">EJERCICIOS <button (click)="open(addExerciseModal)" class="btn red-btn">+</button></h2>
+    
+    <div class="table-responsive mt-md">
+       <table class="table table-dark">
+           <thead>
+             <tr>
+               <th scope="col">ACCIONES</th>
+               <th scope="col">NOMBRE</th>
+               <th scope="col">MUSCULOS</th>
+               <th scope="col">DIFICULTAD</th>
+               <th scope="col">IMAGEN GIF</th>
+               <th scope="col">VIDEO</th>
+               
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let exercise of this.exerciseList;let i = index">
+              <th scope="row" [textContent]=exercise.id></th>
+               <td > 
+                   <button (click)="this.exerciseToEdit=exercise;this.createEditExerciseForm();open(editExerciseModal)" class="btn red-btn">E</button> 
+                   <button (click)="this.deleteExercise(exercise,i)" class="btn red-btn ml-sm">X</button>
+               </td>
+               <td [textContent]=exercise.name></td>
+               <td [textContent]=exercise.muscleGroup></td>
+               <td [textContent]=exercise.difficulty></td>
+               <td [textContent]=exercise.imgUrl></td>
+               <td [textContent]=exercise.tipsUrl></td>
+               
+             </tr>
+           
+           </tbody>
+         </table>
+       </div>
+   </section>
+-->

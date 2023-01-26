@@ -33,11 +33,11 @@
 
 /*boton-rojo */
 .red-btn{
-  
+  margin-left: .5em;
   color: whitesmoke;
   background-color: #000;
-  border-radius: 5px;
-  border: orangered 2px solid;
+  border-radius: 20px;
+  border: darkred 2px solid;
   transition: 0.3s;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .red-border-text{
-  
+
   text-shadow:
     0 0 5px #fff,
     0 0 10px #fff,

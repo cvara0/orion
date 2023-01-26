@@ -4,10 +4,11 @@ export class Pexercise{
         public studentId     : string,
         public excerciseId   : string,
         public isReady       : boolean,
-        public lap           : string,
-        public time          : string,
+        public load          : number,
+        public dosification  : number,
+        public time          : number,
+        public restTime      : number,
         public id?           : string
-        
     ){
 
     }
