@@ -10,9 +10,7 @@ export class ExerciseService {
 
   private url;
 
-exerciseList: Exercise[];
-
-
+  exerciseList: Exercise[];
 
 /*
          public id                : number,

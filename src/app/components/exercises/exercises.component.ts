@@ -12,18 +12,19 @@ import { ExerciseService } from 'src/app/services/exercise.service';
 })
 export class ExercisesComponent implements OnInit {
 
-  closeResult        : string='';
-  addExerciseForm!   :FormGroup;
+  closeResult         :string='';
+  addExerciseForm!    :FormGroup;
   editExerciseForm!   :FormGroup;
 
-  exerciseList:Exercise[];
+  exerciseList        :Exercise[];
 
-  exerciseToEdit!:Exercise;
+  exerciseToEdit!     :Exercise;
+  exerciseToView!     :Exercise;
 
-  muscleGroupList    :string[];
-  elementList        :string[];
-  difficultyList     :string[];
-  genderList         :string[];
+  muscleGroupList     :string[];
+  elementList         :string[];
+  difficultyList      :string[];
+  genderList          :string[];
 
 
   isLoading:boolean=false;
@@ -48,7 +49,7 @@ export class ExercisesComponent implements OnInit {
     this.difficultyList=['MUY FACIL','FACIL','MEDIA','DIFICIL','MUY DIFICIL'];
     this.genderList=['GENERO','MUJER','HOMBRE','INDISTINTO'];
 
-    exerciseService.getExerciseList().subscribe(resp=>this.exerciseList=resp)
+    exerciseService.getExerciseList().subscribe(resp=>this.exerciseList=resp);
     
    }
 
@@ -69,6 +70,7 @@ export class ExercisesComponent implements OnInit {
       exeToAddImgUrl       : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToAddGender       : ['',[Validators.required]],
       exeToAddElement      : ['',[Validators.required]],
+      exeToAddCommonErrors : ['',[Validators.required]]
     });
   }
   get validExeToAddMuscleGroup(){
@@ -95,7 +97,9 @@ export class ExercisesComponent implements OnInit {
   get validExeToAddElement(){
     return this.addExerciseForm.get('exeToAddElement')?.dirty;
   }
-  
+  get validExeToAddCommonErrors(){
+    return this.addExerciseForm.get('exeToAddCommonErrors')?.invalid;
+  }
 
   saveAddExercise(){
 
@@ -108,7 +112,8 @@ export class ExercisesComponent implements OnInit {
         this.addExerciseForm.get('exeToAddTipsUrl')?.value,
         this.addExerciseForm.get('exeToAddImgUrl')?.value,
         this.addExerciseForm.get('exeToAddGender')?.value,
-        this.addExerciseForm.get('exeToAddElement')?.value
+        this.addExerciseForm.get('exeToAddElement')?.value,
+        this.addExerciseForm.get('exeToAddCommonErrors')?.value
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -125,6 +130,8 @@ export class ExercisesComponent implements OnInit {
       exeToEditTipsUrl      : [this.exerciseToEdit.tipsUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToEditImgUrl       : [this.exerciseToEdit.imgUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToEditGender       : [this.exerciseToEdit.gender,[Validators.required]],
+      exeToAddElement       : [this.exerciseToEdit.element,[Validators.required]],
+      exeToAddCommonErrors  : [this.exerciseToEdit.commonErrors,[Validators.required]]
     });
   }
   get validExeToEditMuscleGroup(){
@@ -151,6 +158,10 @@ export class ExercisesComponent implements OnInit {
   get validExeToEditElement(){
     return this.editExerciseForm.get('exeToEditElement')?.dirty;
   }
+  get validExeToEditCommonErrors(){
+    return this.addExerciseForm.get('exeToEditCommonErrors')?.invalid;
+  }
+
  
 saveEditExercise(){
 
@@ -165,6 +176,7 @@ saveEditExercise(){
       this.editExerciseForm.get('exeToEditImgUrl')?.value,
       this.editExerciseForm.get('exeToEditGender')?.value,
       this.editExerciseForm.get('exeToEditElement')?.value,
+      this.editExerciseForm.get('exeToEditCommonErrors')?.value,
       this.exerciseToEdit.id
     )
   ).subscribe(resp=>{
@@ -199,7 +211,7 @@ deleteExercise(exerciseToDelete:Exercise,i:number){
     this.modalService.open(content, {
         ariaLabelledBy: 'modal-basic-title',
         centered:true,
-        //size:'md'
+        size:'lg'
         //size:'lg xl sm',
       // windowClass:'ngb-modal-style'
         

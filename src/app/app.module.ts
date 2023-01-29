@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExercisesComponent } from './components/exercises/exercises.component';
 import { StudentsComponent } from './components/students/students.component';
 import { RoutineComponent } from './components/routine/routine.component';
-import { RoutinesComponent } from './components/students/routines/routines.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { RoutinesComponent } from './components/students/routines/routines.compo
     NavbarComponent,
     ExercisesComponent,
     StudentsComponent,
-    RoutineComponent,
-    RoutinesComponent
+    RoutineComponent
   ],
   imports: [
     FormsModule,

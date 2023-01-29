@@ -1,22 +1,26 @@
 <main class="container" style="margin-top: 1.5em;">
-        
+    
+    <h2 class="text-title">EJERCICIOS PARA {{this.studentByStudentId?.name}}<button (click)="open(addPexerciseModal)" class="btn red-btn">+</button></h2>
     <section class="row justify-content-center mt-lg">
-        <h2 style="text-align: center;">Hola cap, tu rutina de hoy:</h2>
-        <div>
-                <button class="btn red-btn">1. eje </button>
-                <button class="btn red-btn">2. eje </button>
-                <button class="btn red-btn">3. eje </button>
-                <button class="btn red-btn">4. eje </button>
-        </div>
+        <h2 style="text-align: center;">Hola {{this.studentByStudentId?.name}} tu rutina de hoy:</h2>
+            <div class="row" *ngFor="let pexercise of this.pexerciseList ; let i = index">
+                <h3 >{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}} 
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn">E</button>
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn">X</button>
+                </h3>
+
+               
+             </div>
+       
     </section>
 
     <section class="row justify-content-center mt-lg">
         <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>
         <div class="col-12" style="width: 810px;">
             <div class="row justify-content-center">
-                <button class="red-btn col-5">no lo puedo hacer</button>
+                <button class="btn red-btn col-5">no lo puedo hacer</button>
                 <div class="col-2"></div>
-                <button class="red-btn col-5">listo!</button>
+                <button class="btn red-btn col-5">listo!</button>
             </div>
         </div>    
     </section>
@@ -28,3 +32,67 @@
         </iframe>
     </section>
 </main>
+
+<!-- 
+
+studentId     : string,
+excerciseId   : string,
+isReady       : boolean
+load          : number,
+dosage        : string,
+time          : number,
+restTime      : number,
+type          : string,
+id?           : string
+
+
+pexToEditExcerciseId
+pexToEditisReady    
+pexToEditLoad       
+pexToEditDosage     
+pexToEditTime       
+pexToEditRestTime   
+pexToEditType       
+-->
+
+<ng-template #addPexerciseModal let-modal>
+    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+      <form class="row" [formGroup]="addPexerciseForm" (ngSubmit)="saveAddPexercise()">
+        <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+        <select class="red-btn h-lg" formControlName="pexToAddExerciseId">
+            <option value="" selected disabled hidden>EJERCICIO</option>
+            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList">
+                {{exercise.name}}
+            </option>
+        </select>
+
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>CARGA</option>
+            <option *ngFor="let load of this.loadList">
+                {{load}}
+            </option>
+        </select>
+       <button (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+    </form>
+</ng-template> 
+
+<ng-template #editPexerciseModal let-modal>
+    <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+      <form class="row" [formGroup]="addPexerciseForm" (ngSubmit)="saveAddPexercise()">
+        <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+        <select class="red-btn h-lg" formControlName="pexToAddExerciseId">
+            <option value="" selected disabled hidden>EJERCICIO</option>
+            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList">
+                {{exercise.name}}
+            </option>
+        </select>
+
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>CARGA</option>
+            <option *ngFor="let load of this.loadList">
+                {{load}}
+            </option>
+        </select>
+       <button (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+    </form>
+</ng-template> 

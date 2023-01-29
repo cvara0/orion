@@ -19,7 +19,7 @@
                   <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
                   <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn">E</button> 
                   <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
-                  <a [routerLink]="['/routines',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
+                  <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
               </td>
              <td [textContent]=student.name></td>
              <td [textContent]=student.surname></td>

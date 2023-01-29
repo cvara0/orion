@@ -31,7 +31,7 @@ pexerciseList: Pexercise[];
   }
 
 
-  postExercise(pexerciseToAdd:Pexercise){
+  postPexercise(pexerciseToAdd:Pexercise){
     return this.http.post(`${this.url}/pexercises.json`, pexerciseToAdd).pipe(
       map((resp:any)=>{
         return pexerciseToAdd;

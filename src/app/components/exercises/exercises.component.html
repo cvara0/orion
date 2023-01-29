@@ -10,24 +10,20 @@
             <th scope="col">NOMBRE</th>
             <th scope="col">MUSCULOS</th>
             <th scope="col">DIFICULTAD</th>
-            <th scope="col">IMAGEN GIF</th>
-            <th scope="col">VIDEO</th>
             
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let exercise of this.exerciseList;let i = index">
             <!--<th scope="row" [textContent]=exercise.id></th>-->
-            <td > 
+            <td> 
                 <button (click)="this.exerciseToEdit=exercise;this.createEditExerciseForm();open(editExerciseModal)" class="btn red-btn">E</button> 
                 <button (click)="this.deleteExercise(exercise,i)" class="btn red-btn ml-sm">X</button>
+                <button (click)="this.exerciseToView=exercise;open(viewExerciseModal)" class="btn red-btn ml-sm">VER</button>
             </td>
             <td [textContent]=exercise.name></td>
             <td [textContent]=exercise.muscleGroup></td>
             <td [textContent]=exercise.difficulty></td>
-            <td [textContent]=exercise.imgUrl></td>
-            <td [textContent]=exercise.tipsUrl></td>
-            
           </tr>
         
         </tbody>
@@ -113,3 +109,41 @@
         <button *ngIf="(!validExeToEditName && !validExeToEditTipsUrl && !validExeToEditImgUrl)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 
+
+<ng-template #viewExerciseModal let-modal>
+  
+    <div class="row" style="background-color:black">
+      <button type="button" class="red-btn mb-md" (click)="modal.dismiss('Cross click')">X</button>
+      <h3 class="text-title" style="background-color: black;">{{this.exerciseToView.name}}</h3>
+      <u>Nombre</u>
+      <h5> {{this.exerciseToView.name}}</h5>
+      <u>Grupo muscular</u>
+      <h5> {{this.exerciseToView.muscleGroup}}</h5>
+      <u>Dificultad</u>
+      <h5> {{this.exerciseToView.difficulty}}</h5>
+      <u>Video tips</u>
+      <h5> {{this.exerciseToView.tipsUrl}}</h5>
+      <u>Imagen gif</u>
+      <h5> {{this.exerciseToView.imgUrl}}</h5>
+      <u>Genero</u>
+      <h5> {{this.exerciseToView.gender}}</h5>
+      <u>Elementos</u>
+      <h5> {{this.exerciseToView.element}}</h5>
+      <u>Errores comunes</u>
+      <h5> {{this.exerciseToView.commonErrors}}</h5>
+    </div>
+       
+  </ng-template> 
+
+  <!-- 
+
+    exeToAddMuscleGroup 
+exeToAddName        
+exeToAddDifficulty  
+exeToAddTipsUrl     
+exeToAddImgUrl      
+exeToAddGender      
+exeToAddElement     
+exeToAddCommonErrors
+
+  -->

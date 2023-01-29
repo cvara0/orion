@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
 import { StudentService } from 'src/app/services/student.service';
 

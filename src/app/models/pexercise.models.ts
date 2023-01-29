@@ -1,13 +1,16 @@
+import { Exercise } from "./exercise.models";
+
 export class Pexercise{
 
     constructor(
         public studentId     : string,
-        public excerciseId   : string,
+        public exerciseId    : string,
         public isReady       : boolean,
         public load          : number,
-        public dosification  : number,
+        public dosage        : string,
         public time          : number,
         public restTime      : number,
+        public type          : string,
         public id?           : string
     ){
 
