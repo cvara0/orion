@@ -23,6 +23,7 @@
 .mb-lg { margin-bottom: 2.5em; }
 .mb-xl { margin-bottom: 6em; }
 .mb-sm { margin-bottom: .5em; }
+.ml-sm { margin-left: .5em; }
 .ml-md { margin-left: 1em; }
 .mr-md {margin-left: 1em; }
 .mlr-auto{margin-left: auto; margin-right: auto;}
@@ -35,7 +36,7 @@
 .red-btn{
   color: whitesmoke;
   background-color: #000;
-  border-radius: 20px;
+  border-radius: 10px;
   border: darkred 2px solid;
   transition: 0.3s;
 }
@@ -45,7 +46,11 @@
   background-color: #000;
 }
 
-
+.red-box{
+  background-color: #000;
+  border-radius: 10px;
+  border: darkred 2px solid;
+}
 /* borde neon rojo*/
 .red-border-box{
   box-shadow:0 0 5px #fff,
@@ -71,6 +76,13 @@
     0 0 20px rgb(255, 0, 0),
     0 0 40px rgb(255, 0, 0),
     0 0 80px rgb(255, 0, 0);
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display: block;
 }
 /*!
  grid boostrap--------------------------------------------------------------------------------------------------------

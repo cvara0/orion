@@ -1,35 +1,38 @@
 <main class="container" style="margin-top: 1.5em;">
     
     <h2 class="text-title">EJERCICIOS PARA {{this.studentByStudentId?.name}}<button (click)="open(addPexerciseModal)" class="btn red-btn">+</button></h2>
-    <section class="row justify-content-center mt-lg">
-        <h2 style="text-align: center;">Hola {{this.studentByStudentId?.name}} tu rutina de hoy:</h2>
-            <div class="row" *ngFor="let pexercise of this.pexerciseList ; let i = index">
-                <h3 >{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}} 
-                    <button (click)="open(editPexerciseModal)" class="btn red-btn">E</button>
-                    <button (click)="open(editPexerciseModal)" class="btn red-btn">X</button>
-                </h3>
-
-               
-             </div>
-       
-    </section>
-
-    <section class="row justify-content-center mt-lg">
-        <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>
-        <div class="col-12" style="width: 810px;">
-            <div class="row justify-content-center">
-                <button class="btn red-btn col-5">no lo puedo hacer</button>
-                <div class="col-2"></div>
-                <button class="btn red-btn col-5">listo!</button>
-            </div>
-        </div>    
-    </section>
-
-    <section class="row justify-content-center mt-lg">
-        <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
-        <iframe class="container" height="512px"
-            src="https://www.youtube.com/embed/azdwsXLmrHE">
-        </iframe>
+    <section class="row justify-content-center mt-md">
+        <!--<h2 style="text-align: center;">Hola {{this.studentByStudentId?.name}}, tu rutina de hoy:</h2>-->
+        <div class="row mt-lg">
+            <div class="row" *ngFor="let pexercise of this.pexerciseList ; let i = index">   
+                <h3 class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-sm">{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}} </h3>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <button (click)="showToggle(i)" class="btn red-btn ml-sm" >VER / OCULTAR </button>
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn ml-sm">E</button>
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn ml-sm">X</button>
+                </div>
+                <div id="toggle{{i}}" style="display: none;">
+                    <section class="row justify-content-center mt-lg">
+                        <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <button class="btn red-btn col-5">no lo puedo hacer</button>
+                                <div class="col-2"></div>
+                                <button class="btn red-btn col-5">listo!</button>
+                            </div>
+                        </div>    
+                    </section>
+                    <section class="row justify-content-center mt-lg">
+                        <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
+                        <iframe class="container" height="512px"
+                            src="https://www.youtube.com/embed/azdwsXLmrHE">
+                        </iframe>
+                        <button (click)="showToggle(i)" class="btn red-btn" >↑↑ OCULTAR ↑↑</button>
+                    </section>
+                </div>
+                <hr class="mt-sm mb-sm">
+            </div> 
+        </div>      
     </section>
 </main>
 

@@ -39,6 +39,7 @@ export class RoutineComponent implements OnInit {
   restTimeList         :number[];
   typeList             :string[];
 
+  showOrHide           :string;
 
   isLoading:boolean=false;
 
@@ -70,7 +71,7 @@ id?           : string
       this.typeList=['tipo1','tipo2','tipo3','etc'];      
 
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
-      
+      this.showOrHide="";
     }
 
   ngOnInit(): void {
@@ -83,6 +84,17 @@ id?           : string
     
     //arr2.every( ai => arr1.includes(ai) );
     //let mapped = arr.map(v => v.a);
+  }
+
+  showToggle(i:number){
+    const element = document.getElementById('toggle'+i);
+    if(element!=null){
+      if(element.style.display=='none')
+        element.style.display='block';
+      else
+        element.style.display='none';
+    }
+    
   }
 
   getExerciseById(exerciseId:string){

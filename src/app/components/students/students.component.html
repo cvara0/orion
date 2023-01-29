@@ -5,25 +5,44 @@
      <table class="table table-dark">
          <thead>
            <tr>
-             <th scope="col">ACCIONES</th>
              <th scope="col">NOMBRE</th>
              <th scope="col">APELLIDO</th>
              <th scope="col">EDAD</th>
-             
+             <th scope="col">ACCIONES</th>  
            </tr>
          </thead>
          <tbody>
            <tr *ngFor="let student of this.studentList;let i = index">
              <!--<th scope="row" [textContent]=exercise.id></th>-->
-             <td> 
-                  <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
-                  <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn">E</button> 
-                  <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
-                  <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
-              </td>
+            
              <td [textContent]=student.name></td>
              <td [textContent]=student.surname></td>
              <td [textContent]=student.age></td>
+             <td> 
+              <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
+              <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn ml-sm">E</button> 
+              <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
+              <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
+          </td>
+
+          <ng-template #viewStudentModal let-modal>
+  
+            <div class="row" style="background-color:black">
+              <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+              <h3 class="text-title" style="background-color: black;">{{this.studentToView.name}} {{this.studentToView.surname}}</h3>
+              <h5> peso: {{this.studentToView.weight}}</h5>
+              <h5> edad: {{this.studentToView.age}}</h5>
+              <h5> deporte: {{this.studentToView.sport}}</h5>
+              <h5> profesion: {{this.studentToView.profession}}</h5>
+              <h5> drogas/medicamentos: {{this.studentToView.drug}}</h5>
+              <h5> limitacines: {{this.studentToView.limitation}}</h5>
+              <h5> prescripcion medica: {{this.studentToView.prescription}}</h5>
+              <h5> telefono: {{this.studentToView.phone}}</h5>
+              <button [routerLink]="['/routine',student.id]" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</button>
+               <!--asignar o ver rutina segun sea el caso-->
+            </div>
+               
+          </ng-template> 
 
            </tr>
          
@@ -126,22 +145,3 @@
 </ng-template> 
 
 
-<ng-template #viewStudentModal let-modal>
-  
-  <div class="row" style="background-color:black">
-    <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
-    <h3 class="text-title" style="background-color: black;">{{this.studentToView.name}} {{this.studentToView.surname}}</h3>
-    <h5> peso: {{this.studentToView.weight}}</h5>
-    <h5> edad: {{this.studentToView.age}}</h5>
-    <h5> deporte: {{this.studentToView.sport}}</h5>
-    <h5> profesion: {{this.studentToView.profession}}</h5>
-    <h5> drogas/medicamentos: {{this.studentToView.drug}}</h5>
-    <h5> limitacines: {{this.studentToView.limitation}}</h5>
-    <h5> prescripcion medica: {{this.studentToView.prescription}}</h5>
-    <h5> telefono: {{this.studentToView.phone}}</h5>
-    <button [routerLink]="['routine']" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</button>
-    <button class="btn red-btn ml-sm">ASIGNAR RUTINA</button>
-     <!--asignar o ver rutina segun sea el caso-->
-  </div>
-     
-</ng-template> 
