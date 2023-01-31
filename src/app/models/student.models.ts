@@ -16,6 +16,8 @@ export class Student{
         public prescription       : string,
         public phone              : number,
         public coment             : string,
+        public entryDate          : string,
+        public payDate            : string,
         public id?                : string
         
     ){

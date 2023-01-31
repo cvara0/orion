@@ -62,6 +62,7 @@ export class StudentsComponent implements OnInit {
       stuToAddPrescription     : ['',[Validators.required]],
       stuToAddPhone            : ['',[Validators.required]],
       stuToAddComent           : ['',[Validators.required]],
+      
     });
   }
   get validStuToAddName(){
@@ -115,12 +116,12 @@ export class StudentsComponent implements OnInit {
   get validStuToAddComent(){
     return this.addStudentForm.get('stuToAddComent')?.invalid;
   }
-
+  
 
   saveAddStudent(){
 
     this.isLoading=true;
-    
+    const actualDate = new Date();
     this.studentService.postStudent(
       new Student(
         this.addStudentForm.get('stuToAddName')?.value,
@@ -136,7 +137,8 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddPrescription')?.value,
         this.addStudentForm.get('stuToAddPhone')?.value,
         this.addStudentForm.get('stuToAddComent')?.value,
-    
+        actualDate.toLocaleString(),
+        actualDate.toLocaleString()
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -161,7 +163,7 @@ export class StudentsComponent implements OnInit {
       stuToEditPrescription     : [this.studentToEdit.prescription,[Validators.required]],
       stuToEditPhone            : [this.studentToEdit.phone,[Validators.required]],
       stuToEditComent           : [this.studentToEdit.coment,[Validators.required]],
-      
+      stuToEditPayDate          : [this.studentToEdit.payDate,[Validators.required]],
     });
   }
   get validStuToEditName(){
@@ -209,6 +211,9 @@ export class StudentsComponent implements OnInit {
     return this.editStudentForm.get('stuToEditComent')?.invalid;
   }
 
+  get validStuToEditPayDate(){
+    return this.editStudentForm.get('stuToEditPayDate')?.invalid;
+  }
 
   saveEditStudent(){
 
@@ -229,6 +234,8 @@ export class StudentsComponent implements OnInit {
         this.editStudentForm.get('stuToEditPrescription')?.value,
         this.editStudentForm.get('stuToEditPhone')?.value,
         this.editStudentForm.get('stuToEditComent')?.value,
+        this.studentToEdit.entryDate,
+        this.editStudentForm.get('stuToEditPayDate')?.value,
         this.studentToEdit.id
       )
     ).subscribe(resp=>{

@@ -86,7 +86,13 @@ id?           : string
     //let mapped = arr.map(v => v.a);
   }
 
-  showToggle(i:number){
+  hideToggle(i:number){
+    const element = document.getElementById('toggle'+i);
+    if(element!=null)
+        element.style.display='none';
+  }
+
+  showHideToggle(i:number){
     const element = document.getElementById('toggle'+i);
     if(element!=null){
       if(element.style.display=='none')

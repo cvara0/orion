@@ -8,6 +8,7 @@
              <th scope="col">NOMBRE</th>
              <th scope="col">APELLIDO</th>
              <th scope="col">EDAD</th>
+             <th scope="col">CUOTAS</th>
              <th scope="col">ACCIONES</th>  
            </tr>
          </thead>
@@ -15,9 +16,10 @@
            <tr *ngFor="let student of this.studentList;let i = index">
              <!--<th scope="row" [textContent]=exercise.id></th>-->
             
-             <td [textContent]=student.name></td>
-             <td [textContent]=student.surname></td>
-             <td [textContent]=student.age></td>
+             <td>{{student.name}}</td>
+             <td>{{student.surname}}</td>
+             <td>{{student.age}}</td>
+             <td>al dia</td>
              <td> 
               <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
               <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn ml-sm">E</button> 
@@ -27,21 +29,68 @@
 
           <ng-template #viewStudentModal let-modal>
   
-            <div class="row" style="background-color:black">
-              <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+            <div style="background-color:black">
+              <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">CERRAR</button>
               <h3 class="text-title" style="background-color: black;">{{this.studentToView.name}} {{this.studentToView.surname}}</h3>
-              <h5> peso: {{this.studentToView.weight}}</h5>
-              <h5> edad: {{this.studentToView.age}}</h5>
-              <h5> deporte: {{this.studentToView.sport}}</h5>
-              <h5> profesion: {{this.studentToView.profession}}</h5>
-              <h5> drogas/medicamentos: {{this.studentToView.drug}}</h5>
-              <h5> limitacines: {{this.studentToView.limitation}}</h5>
-              <h5> prescripcion medica: {{this.studentToView.prescription}}</h5>
-              <h5> telefono: {{this.studentToView.phone}}</h5>
-              <button [routerLink]="['/routine',student.id]" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</button>
+              <div class="table-responsive">
+                <table class="table table-dark">
+                  <hr>
+                  <tr>
+                    <td>PESO: </td>
+                    <td>{{this.studentToView.weight}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td> EDAD: </td>
+                    <td>{{this.studentToView.age}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>DEPORTE: </td>
+                    <td>{{this.studentToView.sport}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>PROFESION: </td>
+                    <td>{{this.studentToView.profession}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>DROGAS/MEDICAMENTOS: </td>
+                    <td>{{this.studentToView.drug}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>LIMITACIONES: </td>
+                    <td>{{this.studentToView.limitation}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>PEPRESCRIPCIONES MEDICAS: </td>
+                    <td>{{this.studentToView.prescription}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>TELEFONO: </td>
+                    <td>{{this.studentToView.phone}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>FECHA DE INGRESO: </td>
+                    <td>{{this.studentToView.entryDate}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td>FECHA DE PAGO: </td>
+                    <td>{{this.studentToView.payDate}}</td>
+                  </tr>
+                  <hr>
+                </table>
+           
+                <a [routerLink]="['/routine',student.id]" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</a>
                <!--asignar o ver rutina segun sea el caso-->
             </div>
-               
+          </div>
           </ng-template> 
 
            </tr>
