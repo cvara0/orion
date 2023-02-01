@@ -4,7 +4,6 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
 import { StudentService } from 'src/app/services/student.service';
-
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -34,7 +33,16 @@ export class StudentsComponent implements OnInit {
     
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
 
-    studentService.getStudentList().subscribe(resp=>this.studentList=resp)
+    studentService.getStudentList().subscribe(
+      resp=>{
+        const actualDate = new Date();
+        this.studentList=resp;
+        for (let i of this.studentList) {
+          const [month, day, year] = i.payDate.split('/');
+          console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-actualDate.getTime())/86400000));
+        }
+        
+    });
     
    }
 
@@ -121,7 +129,9 @@ export class StudentsComponent implements OnInit {
   saveAddStudent(){
 
     this.isLoading=true;
-    const actualDate = new Date();
+    const entryDate = new Date();
+    const payDate= new Date();
+    payDate.setMonth(entryDate.getMonth()+1);
     this.studentService.postStudent(
       new Student(
         this.addStudentForm.get('stuToAddName')?.value,
@@ -137,8 +147,8 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddPrescription')?.value,
         this.addStudentForm.get('stuToAddPhone')?.value,
         this.addStudentForm.get('stuToAddComent')?.value,
-        actualDate.toLocaleString(),
-        actualDate.toLocaleString()
+        entryDate.toLocaleString(),
+        payDate.toLocaleDateString()
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -244,10 +254,6 @@ export class StudentsComponent implements OnInit {
     this.addStudentForm.reset();
   }
 
-///////////////////////////////////////////////////////////////////
-getStudents(){
-  this.studentService.getStudentList().subscribe();
-}
 
 ///////////////////////////////////////////////////////////////////
 
