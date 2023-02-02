@@ -19,12 +19,13 @@
              <td>{{student.name}}</td>
              <td>{{student.surname}}</td>
              <td>{{student.age}}</td>
-             <td>al dia</td>
+             <td>{{this.payState}}</td>
              <td> 
               <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
               <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn ml-sm">E</button> 
               <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
               <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
+              <a [routerLink]="['/pays',student.id]" class="btn red-btn ml-sm">VER PAGOS</a>
           </td>
 
           <ng-template #viewStudentModal let-modal>
@@ -75,7 +76,7 @@
                     <td>{{this.studentToView.phone}}</td>
                   </tr>
                   <hr>
-                  <tr>
+                 <!-- <tr>
                     <td>FECHA DE INGRESO: </td>
                     <td>{{this.studentToView.entryDate}}</td>
                   </tr>
@@ -84,7 +85,7 @@
                     <td>FECHA DE PAGO: </td>
                     <td>{{this.studentToView.payDate}}</td>
                   </tr>
-                  <hr>
+                  <hr>-->
                 </table>
            
                 <a [routerLink]="['/routine',student.id]" (click)="modal.dismiss('Cross click')" class="btn red-btn ml-sm">VER RUTINA</a>

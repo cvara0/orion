@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
+import { PayService } from 'src/app/services/pay.service';
 import { StudentService } from 'src/app/services/student.service';
 @Component({
   selector: 'app-students',
@@ -18,29 +19,42 @@ export class StudentsComponent implements OnInit {
 
   studentList        :Student[];
 
-  studentToEdit!:Student;
-  studentToView!:Student;
+  studentToEdit!     :Student;
+  studentToView!     :Student;
 
   levelList          :string[];
 
+  payState           :string;
   
 
   isLoading:boolean=false;
 
-  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public studentService:StudentService) {
+  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public studentService:StudentService,public payService:PayService) {
 
     this.studentList=[];
-    
+    this.payState='';
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
 
     studentService.getStudentList().subscribe(
       resp=>{
-        const actualDate = new Date();
+  
         this.studentList=resp;
-        for (let i of this.studentList) {
-          const [month, day, year] = i.payDate.split('/');
-          console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-actualDate.getTime())/86400000));
-        }
+        /*for (let i of this.studentList) {
+          const [day, month, year] = i.payDate.split('/');
+          const dayDiff=Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000)+1
+          if(dayDiff>0)
+            this.payState='AL DIA ( FALTAN '+dayDiff+' DIAS )';
+          else
+            if (dayDiff==0)
+               this.payState='DIA DE PAGO';
+            else
+              if(dayDiff<0)
+                this.payState='CUOTA ATRASADA POR '+((-1)*dayDiff)+' DIAS';
+
+
+
+          console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
+        }*/
         
     });
     
@@ -131,7 +145,7 @@ export class StudentsComponent implements OnInit {
     this.isLoading=true;
     const entryDate = new Date();
     const payDate= new Date();
-    payDate.setMonth(entryDate.getMonth()+1);
+    payDate.setMonth(payDate.getMonth()+1);
     this.studentService.postStudent(
       new Student(
         this.addStudentForm.get('stuToAddName')?.value,
@@ -146,9 +160,7 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddLimitation')?.value,
         this.addStudentForm.get('stuToAddPrescription')?.value,
         this.addStudentForm.get('stuToAddPhone')?.value,
-        this.addStudentForm.get('stuToAddComent')?.value,
-        entryDate.toLocaleString(),
-        payDate.toLocaleDateString()
+        this.addStudentForm.get('stuToAddComent')?.value
       )
     ).subscribe(resp=>{
       this.isLoading=false;
@@ -172,8 +184,7 @@ export class StudentsComponent implements OnInit {
       stuToEditLimitation       : [this.studentToEdit.limitation,[Validators.required]],
       stuToEditPrescription     : [this.studentToEdit.prescription,[Validators.required]],
       stuToEditPhone            : [this.studentToEdit.phone,[Validators.required]],
-      stuToEditComent           : [this.studentToEdit.coment,[Validators.required]],
-      stuToEditPayDate          : [this.studentToEdit.payDate,[Validators.required]],
+      stuToEditComent           : [this.studentToEdit.coment,[Validators.required]]
     });
   }
   get validStuToEditName(){
@@ -244,8 +255,6 @@ export class StudentsComponent implements OnInit {
         this.editStudentForm.get('stuToEditPrescription')?.value,
         this.editStudentForm.get('stuToEditPhone')?.value,
         this.editStudentForm.get('stuToEditComent')?.value,
-        this.studentToEdit.entryDate,
-        this.editStudentForm.get('stuToEditPayDate')?.value,
         this.studentToEdit.id
       )
     ).subscribe(resp=>{

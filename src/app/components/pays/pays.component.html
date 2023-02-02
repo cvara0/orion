@@ -1,0 +1,41 @@
+<main class="container" style="margin-top: 1.5em;">
+    
+    <h2 class="text-title">EJERCICIOS PARA {{this.studentByStudentId?.name}}  <button (click)="open(addPexerciseModal)" class="btn red-btn ml-sm">+</button></h2>
+    <section class="row justify-content-center mt-md">
+        <!--<h2 style="text-align: center;">Hola {{this.studentByStudentId?.name}}, tu rutina de hoy:</h2>-->
+        <div class="row mt-lg">
+            
+            <div class="row" *ngFor="let pexercise of this.pexerciseList ; let i = index">   
+                
+                
+                <div class="row justify-content-center">
+                    <button (click)="showHideToggle(i)" style="text-align: start;" class="btn red-btn col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" ><h4>{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}}  <b style="color: greenyellow;" *ngIf="pexercise.isReady"> LISTO!</b></h4> </button>
+                    <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">no puedo</button>
+                    <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12" (click)="pexercise.isReady=true;hideToggle(i)">listo!</button>
+                </div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                    
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn ml-sm">E</button>
+                    <button (click)="open(editPexerciseModal)" class="btn red-btn ml-sm">X</button>
+                </div>
+                
+                <div id="toggle{{i}}" class="mt-md" style="display: none;">
+                    
+                    <section class="row justify-content-center">
+                        <h4 class="text-title">{{this.getExerciseById(pexercise.exerciseId)?.name}}</h4>
+                        <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>   
+                    </section>
+                    <section class="row justify-content-center mt-md">
+                        <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
+                        <iframe class="container" height="512px"
+                            src="https://www.youtube.com/embed/azdwsXLmrHE">
+                        </iframe>
+                        <button (click)="hideToggle(i)" class="btn red-btn" >↑↑↑ OCULTAR ↑↑↑</button>
+                    </section>
+                </div>
+                <hr class="mt-sm mb-sm">
+            </div> 
+           
+        </div>      
+    </section>
+</main>

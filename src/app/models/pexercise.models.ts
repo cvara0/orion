@@ -1,5 +1,3 @@
-import { Exercise } from "./exercise.models";
-
 export class Pexercise{
 
     constructor(
