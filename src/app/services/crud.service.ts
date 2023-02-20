@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, deleteDoc, doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getFirestore, onSnapshot, updateDoc } from 'firebase/firestore';
 import db from '../../firebase/firebase.config';
 @Injectable({
   providedIn: 'root'
@@ -10,27 +10,39 @@ export class CrudService {
 
   constructor() { }
 
+  postRow(rowToAdd:any,tableName:string){
+    const obj = JSON.parse(JSON.stringify(rowToAdd));
+    this.rowList=[];
+    return addDoc(collection(db, tableName), obj);
+  }
+
+  putRow(rowToEdit:any,tableName:string){
+    const db = collection(getFirestore(), tableName);
+    const rowRef = doc(db,rowToEdit.id);
+    const obj = JSON.parse(JSON.stringify(rowToEdit));
+    this.rowList=[];
+    
+    return updateDoc(rowRef, obj);
+  }
+  
   deleteRow(rowToDelete:any,tableName:string){
     const db = collection(getFirestore(), tableName);
     const rowRef = doc(db,rowToDelete.id);
+    this.rowList=[];
     //const obj = JSON.parse(JSON.stringify(studentToEdit));
-    deleteDoc(rowRef)
-    .then(resp=>console.log('cambios guardados'))
-    .catch(e=>console.log('error al guardar',e));
+    return deleteDoc(rowRef);
+    /*.then(resp=>console.log('cambios guardados'))
+    .catch(e=>console.log('error al guardar',e));*/
   }
 
-  getTable(tableName:string){
-
+  getRowList(tableName:string){
     const tableRef = collection(db, tableName);
-    onSnapshot(tableRef, (snapshot) => {
-      
+    onSnapshot(tableRef, (snapshot) => { 
       snapshot.docs.forEach((doc) => {
         this.rowList.push({ ...doc.data(), id: doc.id });
       });
-  
     });
-
-    return this.studentList;
+    return this.rowList;
 }
 
 }

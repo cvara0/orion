@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
+import { CrudService } from 'src/app/services/crud.service';
 import { PayService } from 'src/app/services/pay.service';
 import { StudentService } from 'src/app/services/student.service';
 @Component({
@@ -29,13 +30,13 @@ export class StudentsComponent implements OnInit {
 
   isLoading:boolean=false;
 
-  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public studentService:StudentService,public payService:PayService) {
+  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public crudService:CrudService,public payService:PayService) {
     this.studentList=[];
     this.payState='';
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
 
     
-    this.studentList=this.studentService.getStudentList();
+    this.studentList=this.crudService.getRowList('students');
     console.log(this.studentList);
    /* studentService.getStudentList().subscribe(
       resp=>{
@@ -149,7 +150,7 @@ export class StudentsComponent implements OnInit {
     const entryDate = new Date();
     const payDate= new Date();
     payDate.setMonth(payDate.getMonth()+1);
-    this.studentService.postStudent(
+    this.crudService.postRow(
       new Student(
         this.addStudentForm.get('stuToAddName')?.value,
         this.addStudentForm.get('stuToAddSurname')?.value,
@@ -164,13 +165,12 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddPrescription')?.value,
         this.addStudentForm.get('stuToAddPhone')?.value,
         this.addStudentForm.get('stuToAddComent')?.value
-      )
+      ),
+      'students'
     ).then(resp=>{this.isLoading=false;
                   location.reload();})
     .catch(e=>console.log('error al guardar',e));
-    /*subscribe(resp=>{
-      this.isLoading=false;
-      location.reload();}); */
+    
     this.addStudentForm.reset();
   }
 
@@ -246,7 +246,7 @@ export class StudentsComponent implements OnInit {
 
     this.isLoading=true;
     
-    this.studentService.putStudent(
+    this.crudService.putRow(
       new Student(
         this.editStudentForm.get('stuToEditName')?.value,
         this.editStudentForm.get('stuToEditSurname')?.value,
@@ -262,11 +262,14 @@ export class StudentsComponent implements OnInit {
         this.editStudentForm.get('stuToEditPhone')?.value,
         this.editStudentForm.get('stuToEditComent')?.value,
         this.studentToEdit.id
-      )
-    ).then(resp=>{this.isLoading=false;
-      location.reload();
-      })
-     .catch(e=>console.log('error al guardar',e));
+      ),
+      'students'
+    ).then(resp=>
+        {this.isLoading=false;
+        location.reload();
+        })
+     .catch(e=>{console.log('error al guardar',e);
+                this.isLoading=false;});
   }
 
 
@@ -275,12 +278,11 @@ export class StudentsComponent implements OnInit {
 deleteStudent(studentToDelete:Student,i:number){
   this.isLoading=true;
     if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
-      this.studentService.deleteStudent(studentToDelete);
-      /*.subscribe(resp=>{
-        this.isLoading=false;
-        location.reload();});*/
-     
-    
+      this.crudService.deleteRow(studentToDelete,'students').then(resp=>
+        {this.isLoading=false;
+        location.reload();
+        })
+     .catch(e=>console.log('error al eliminar',e));
    
   }else
     this.isLoading=false;
