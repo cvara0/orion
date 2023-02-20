@@ -79,7 +79,7 @@ id?           : string
     
     this.exerciseService.getExerciseList().subscribe(resp=>this.exerciseList=resp);
     this.pexerciseService.getPexerciseList().subscribe(resp=>this.pexerciseList=resp.filter(resp2=>resp2.studentId==this.paramStudentId));
-    this.studentService.getStudentList().subscribe(resp=>this.studentByStudentId=resp.find(resp2=>resp2.id==this.paramStudentId));
+    //this.studentService.getStudentList().subscribe(resp=>this.studentByStudentId=resp.find(resp2=>resp2.id==this.paramStudentId));
     
     
     //arr2.every( ai => arr1.includes(ai) );

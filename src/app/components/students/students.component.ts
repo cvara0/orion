@@ -30,16 +30,18 @@ export class StudentsComponent implements OnInit {
   isLoading:boolean=false;
 
   constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public studentService:StudentService,public payService:PayService) {
-
     this.studentList=[];
     this.payState='';
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
 
-    studentService.getStudentList().subscribe(
+    
+    this.studentList=this.studentService.getStudentList();
+    console.log(this.studentList);
+   /* studentService.getStudentList().subscribe(
       resp=>{
   
         this.studentList=resp;
-        /*for (let i of this.studentList) {
+        for (let i of this.studentList) { para el dia de pago
           const [day, month, year] = i.payDate.split('/');
           const dayDiff=Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000)+1
           if(dayDiff>0)
@@ -54,9 +56,9 @@ export class StudentsComponent implements OnInit {
 
 
           console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
-        }*/
+        }
         
-    });
+    });*/
     
    }
 
@@ -65,6 +67,7 @@ export class StudentsComponent implements OnInit {
     
   }
 
+  
 
    ////////////////////////////////////////////////////////////////
   createAddStudentForm(){
@@ -139,7 +142,7 @@ export class StudentsComponent implements OnInit {
     return this.addStudentForm.get('stuToAddComent')?.invalid;
   }
   
-
+  
   saveAddStudent(){
 
     this.isLoading=true;
@@ -162,9 +165,12 @@ export class StudentsComponent implements OnInit {
         this.addStudentForm.get('stuToAddPhone')?.value,
         this.addStudentForm.get('stuToAddComent')?.value
       )
-    ).subscribe(resp=>{
+    ).then(resp=>{this.isLoading=false;
+                  location.reload();})
+    .catch(e=>console.log('error al guardar',e));
+    /*subscribe(resp=>{
       this.isLoading=false;
-      location.reload();}); 
+      location.reload();}); */
     this.addStudentForm.reset();
   }
 
@@ -257,10 +263,10 @@ export class StudentsComponent implements OnInit {
         this.editStudentForm.get('stuToEditComent')?.value,
         this.studentToEdit.id
       )
-    ).subscribe(resp=>{
-      this.isLoading=false;
-      location.reload();}); 
-    this.addStudentForm.reset();
+    ).then(resp=>{this.isLoading=false;
+      location.reload();
+      })
+     .catch(e=>console.log('error al guardar',e));
   }
 
 
@@ -269,9 +275,10 @@ export class StudentsComponent implements OnInit {
 deleteStudent(studentToDelete:Student,i:number){
   this.isLoading=true;
     if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
-      this.studentService.deleteStudent(studentToDelete).subscribe(resp=>{
+      this.studentService.deleteStudent(studentToDelete);
+      /*.subscribe(resp=>{
         this.isLoading=false;
-        location.reload();});;
+        location.reload();});*/
      
     
    
