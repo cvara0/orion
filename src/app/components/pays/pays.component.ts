@@ -1,118 +1,74 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Exercise } from 'src/app/models/exercise.models';
-import { Pexercise } from 'src/app/models/pexercise.models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Pay } from 'src/app/models/pay.models';
 import { Student } from 'src/app/models/student.models';
 import { CrudService } from 'src/app/services/crud.service';
-import { ExerciseService } from 'src/app/services/exercise.service';
-import { PexerciseService } from 'src/app/services/pexercise.service';
-import { StudentService } from 'src/app/services/student.service';
 
 @Component({
-  selector: 'app-routine',
-  templateUrl: './routine.component.html',
+  selector: 'app-pays',
+  templateUrl: './pays.component.html',
   styles: [
   ]
 })
-export class RoutineComponent implements OnInit {
-
-  //pexersiceListByStudentId:Pexercise[] | undefined ;
+export class PaysComponent implements OnInit {
 
   studentByStudentId:Student | undefined ;
   paramStudentId:string;
 
   closeResult          :string='';
-  addPexerciseForm!    :FormGroup;
-  editPexerciseForm!   :FormGroup;
+  addPayForm!    :FormGroup;
+  editPayForm!   :FormGroup;
 
-  pexerciseList!        :Pexercise[];
-  exerciseList!         :Exercise[];
-  //exerciseListByIdList!         :Exercise[];
-  exerciseById!         :Exercise ;
+  payList!        :Pay[];
+  planList        :string[];
 
-  pexerciseToEdit!     :Pexercise;
-  pexerciseToView!     :Pexercise;
-
-  dosageList           :string[];
-  loadList             :number[];
-  restTimeList         :number[];
-  typeList             :string[];
-
-  showOrHide           :string;
+  payToEdit!     :Pay;
 
   isLoading:boolean=false;
 
-
-/*
-studentId     : string,
-excerciseId   : string,
-isReady       : boolean
-load          : number,
-dosage        : string,
-time          : number,
-restTime      : number,
-type          : string,
-id?           : string
-*/
-
   constructor(
     private activatedRoute: ActivatedRoute,
-    private pexerciseService:PexerciseService,
-    private studentService:StudentService,
     private modalService: NgbModal,
     private formBuilder:FormBuilder,
-    private exerciseService:ExerciseService,
     public crudService:CrudService
     ) { 
 
-      this.dosageList=['dosaje1','dosaje2','dosaje3','etc'];
-      this.loadList=[5,10,15];    
-      this.restTimeList=[1,2,5];  
-      this.typeList=['tipo1','tipo2','tipo3','etc'];
+      this.planList=[
+        "1x1",//una persona una vez por semana etc
+        "1x2",
+        "1x3",
+        "etc",
+      ];
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
-      this.showOrHide="";
+      
     }
 
   ngOnInit(): void {
-    this.createAddPexerciseForm();
+    this.createAddPayForm();
     
-    this.exerciseList=this.crudService.getRowList('exercises');
-    this.crudService.getRowByCol(this.paramStudentId,'studentId','pexercises').then(resp => { 
-      this.pexerciseList=resp; 
+    this.crudService.getRowByCol(this.paramStudentId,'studentId','pays').then(resp => { 
+      this.payList=resp; 
   });
     this.crudService.getRowByCol(this.paramStudentId,'id','students').then(resp => { 
       this.studentByStudentId=resp[0]; 
   });
     
   }
-
-  hideToggle(i:number){
-    const element = document.getElementById('toggle'+i);
-    if(element!=null)
-        element.style.display='none';
-  }
-
-  showHideToggle(i:number){
-    const element = document.getElementById('toggle'+i);
-    if(element!=null){
-      if(element.style.display=='none')
-        element.style.display='block';
-      else
-        element.style.display='none';
-    }
-    
-  }
-
-  getExerciseById(exerciseId:string){
-    
-    return this.exerciseList.find(i=>i.id==exerciseId);
-  }
+/*
+      public studentId     : string,
+        public payDate       : string,
+        public price         : string,
+        public plan          : string,
+        public state         : string,
+        public id?           : string
+    ){
+*/
    ////////////////////////////////////////////////////////////////
-  createAddPexerciseForm(){
+  createAddPayForm(){
   
-    this.addPexerciseForm=this.formBuilder.group({
+    this.addPayForm=this.formBuilder.group({
       pexToAddExerciseId     : ['',[Validators.required]],
       pexToAddisReady        : ['',[Validators.required]],
       pexToAddLoad           : ['',[Validators.required]],
