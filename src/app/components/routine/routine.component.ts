@@ -245,12 +245,13 @@ saveEditPexercise(){
 
 ///////////////////////////////////////////////////////////////////
 
-deletePexercise(pexerciseToDelete:Pexercise,i:number){
+deletePexercise(pexerciseToDelete:Pexercise){
   this.isLoading=true;
     if (window.confirm("Eliminar ejercicio personalizado ?")){
-      this.pexerciseService.deletePexercise(pexerciseToDelete).subscribe(resp=>{
+      this.crudService.deleteRow(pexerciseToDelete,'pexercises').then(resp=>{
         this.isLoading=false;
-        location.reload();});
+        location.reload();
+        }).catch(e=>console.log('error al eliminar',e));
    
     }else
       this.isLoading=false;

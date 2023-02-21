@@ -38,11 +38,8 @@ export class StudentsComponent implements OnInit {
     
     this.studentList=this.crudService.getRowList('students');
     
-   /* studentService.getStudentList().subscribe(
-      resp=>{
-  
-        this.studentList=resp;
-        for (let i of this.studentList) { para el dia de pago
+   
+        for (let i of this.studentList) {
           const [day, month, year] = i.payDate.split('/');
           const dayDiff=Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000)+1
           if(dayDiff>0)
@@ -59,7 +56,7 @@ export class StudentsComponent implements OnInit {
           console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
         }
         
-    });*/
+    
     
    }
 
