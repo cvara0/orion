@@ -37,7 +37,7 @@ export class StudentsComponent implements OnInit {
 
     
     this.studentList=this.crudService.getRowList('students');
-    console.log(this.studentList);
+    
    /* studentService.getStudentList().subscribe(
       resp=>{
   

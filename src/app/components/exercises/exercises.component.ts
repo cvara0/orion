@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Exercise } from 'src/app/models/exercise.models';
+import { CrudService } from 'src/app/services/crud.service';
 import { ExerciseService } from 'src/app/services/exercise.service';
 
 @Component({
@@ -29,7 +30,7 @@ export class ExercisesComponent implements OnInit {
 
   isLoading:boolean=false;
 
-  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public exerciseService:ExerciseService) {
+  constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public crudService:CrudService) {
 
     this.exerciseList=[];
     
@@ -49,7 +50,7 @@ export class ExercisesComponent implements OnInit {
     this.difficultyList=['MUY FACIL','FACIL','MEDIA','DIFICIL','MUY DIFICIL'];
     this.genderList=['GENERO','MUJER','HOMBRE','INDISTINTO'];
 
-    exerciseService.getExerciseList().subscribe(resp=>this.exerciseList=resp);
+    this.exerciseList=this.crudService.getRowList('exercises');
     
    }
 
@@ -104,7 +105,7 @@ export class ExercisesComponent implements OnInit {
   saveAddExercise(){
 
     this.isLoading=true;
-    this.exerciseService.postExercise(
+    this.crudService.postRow(
       new Exercise(
         this.addExerciseForm.get('exeToAddMuscleGroup')?.value,
         this.addExerciseForm.get('exeToAddName')?.value,
@@ -114,11 +115,14 @@ export class ExercisesComponent implements OnInit {
         this.addExerciseForm.get('exeToAddGender')?.value,
         this.addExerciseForm.get('exeToAddElement')?.value,
         this.addExerciseForm.get('exeToAddCommonErrors')?.value
-      )
-    ).subscribe(resp=>{
-      this.isLoading=false;
-      location.reload();}); 
-    this.addExerciseForm.reset();
+      ),
+    'exercises'
+  ).then(resp=>
+      {this.isLoading=false;
+      location.reload();
+      })
+   .catch(e=>{console.log('error al guardar',e);
+              this.isLoading=false;});
   }
  ////////////////////////////////////////////////////////////////
   createEditExerciseForm(){
@@ -167,7 +171,7 @@ saveEditExercise(){
 
   this.isLoading=true;
   
-  this.exerciseService.putExercise(
+  this.crudService.putRow(
     new Exercise(
       this.editExerciseForm.get('exeToEditMuscleGroup')?.value,
       this.editExerciseForm.get('exeToEditName')?.value,
@@ -178,28 +182,27 @@ saveEditExercise(){
       this.editExerciseForm.get('exeToEditElement')?.value,
       this.editExerciseForm.get('exeToEditCommonErrors')?.value,
       this.exerciseToEdit.id
-    )
-  ).subscribe(resp=>{
-    this.isLoading=false;
-    location.reload();}); 
+    ),
+    'exercises'
+  ).then(resp=>
+      {this.isLoading=false;
+      location.reload();
+      })
+   .catch(e=>{console.log('error al guardar',e);
+              this.isLoading=false;});
 }
 
-///////////////////////////////////////////////////////////////////
-getExercises(){
-  this.exerciseService.getExerciseList().subscribe();
-}
 
 ///////////////////////////////////////////////////////////////////
 
 deleteExercise(exerciseToDelete:Exercise,i:number){
   this.isLoading=true;
     if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
-      this.exerciseService.deleteExercise(exerciseToDelete).subscribe(resp=>{
-        this.isLoading=false;
-        location.reload();});;
-     
-    
-   
+      this.crudService.deleteRow(exerciseToDelete,'students').then(resp=>
+        {this.isLoading=false;
+        location.reload();
+        })
+     .catch(e=>console.log('error al eliminar',e)); 
   }else
     this.isLoading=false;
   }

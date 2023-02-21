@@ -1,6 +1,6 @@
 <main class="container" style="margin-top: 1.5em;">
     
-    <h2 class="text-title">EJERCICIOS PARA {{this.studentByStudentId?.name}}  <button (click)="open(addPexerciseModal)" class="btn red-btn ml-sm">+</button></h2>
+    <h2 class="text-title">EJERCICIOS PARA {{this.studentByStudentId?.name}}  <button (click)="open(addPexerciseModal);this.exerciseList=this.crudService.getRowList('exercises');" class="btn red-btn ml-sm">+</button></h2>
     <section class="row justify-content-center mt-md">
         <!--<h2 style="text-align: center;">Hola {{this.studentByStudentId?.name}}, tu rutina de hoy:</h2>-->
         <div class="row mt-lg">

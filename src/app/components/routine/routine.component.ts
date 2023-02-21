@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Exercise } from 'src/app/models/exercise.models';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
+import { CrudService } from 'src/app/services/crud.service';
 import { ExerciseService } from 'src/app/services/exercise.service';
 import { PexerciseService } from 'src/app/services/pexercise.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -62,14 +63,14 @@ id?           : string
     private studentService:StudentService,
     private modalService: NgbModal,
     private formBuilder:FormBuilder,
-    private exerciseService:ExerciseService
+    private exerciseService:ExerciseService,
+    public crudService:CrudService
     ) { 
 
       this.dosageList=['dosaje1','dosaje2','dosaje3','etc'];
       this.loadList=[5,10,15];    
       this.restTimeList=[1,2,5];  
-      this.typeList=['tipo1','tipo2','tipo3','etc'];      
-
+      this.typeList=['tipo1','tipo2','tipo3','etc'];
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
       this.showOrHide="";
     }
@@ -77,10 +78,16 @@ id?           : string
   ngOnInit(): void {
     this.createAddPexerciseForm();
     
-    this.exerciseService.getExerciseList().subscribe(resp=>this.exerciseList=resp);
-    this.pexerciseService.getPexerciseList().subscribe(resp=>this.pexerciseList=resp.filter(resp2=>resp2.studentId==this.paramStudentId));
-    //this.studentService.getStudentList().subscribe(resp=>this.studentByStudentId=resp.find(resp2=>resp2.id==this.paramStudentId));
     
+    //this.pexerciseService.getPexerciseList().subscribe(resp=>this.pexerciseList=resp.filter(resp2=>resp2.studentId==this.paramStudentId));
+    //this.studentService.getStudentList().subscribe(resp=>this.studentByStudentId=resp.find(resp2=>resp2.id==this.paramStudentId));
+    this.exerciseList=this.crudService.getRowList('exercises');
+    this.crudService.getRowByCol(this.paramStudentId,'studentId','pexercises').then(resp => { 
+      this.pexerciseList=resp; 
+  });
+    this.crudService.getRowByCol(this.paramStudentId,'id','students').then(resp => { 
+      this.studentByStudentId=resp[0]; 
+  });
     
     //arr2.every( ai => arr1.includes(ai) );
     //let mapped = arr.map(v => v.a);
@@ -104,6 +111,7 @@ id?           : string
   }
 
   getExerciseById(exerciseId:string){
+    
     return this.exerciseList.find(i=>i.id==exerciseId);
   }
    ////////////////////////////////////////////////////////////////
@@ -152,7 +160,7 @@ id?           : string
   saveAddPexercise(){
 
     this.isLoading=true;
-    this.pexerciseService.postPexercise(
+    this.crudService.postRow(
       new Pexercise(
         this.paramStudentId,
         this.addPexerciseForm.get('pexToAddExerciseId')?.value,
@@ -162,10 +170,12 @@ id?           : string
         this.addPexerciseForm.get('pexToAddTime')?.value,
         this.addPexerciseForm.get('pexToAddRestTime')?.value,
         this.addPexerciseForm.get('pexToAddType')?.value,
-      )
-    ).subscribe(resp=>{
-      this.isLoading=false;
-      location.reload();}); 
+      ),
+      'pexercises'
+    ).then(resp=>{this.isLoading=false;
+                  location.reload();})
+    .catch(e=>console.log('error al guardar',e));
+    
     this.addPexerciseForm.reset();
   }
  ////////////////////////////////////////////////////////////////
@@ -215,7 +225,7 @@ saveEditPexercise(){
 
   this.isLoading=true;
   
-  this.pexerciseService.putPexercise(
+  this.crudService.putRow(
     new Pexercise(
       this.paramStudentId,
         this.editPexerciseForm.get('pexToEditExerciseId')?.value,
@@ -225,10 +235,12 @@ saveEditPexercise(){
         this.editPexerciseForm.get('pexToEditTime')?.value,
         this.editPexerciseForm.get('pexToEditRestTime')?.value,
         this.editPexerciseForm.get('pexToEditType')?.value,
-    )
-  ).subscribe(resp=>{
-    this.isLoading=false;
-    location.reload();}); 
+    ),
+    'pexercises'
+  ).then(resp=>{
+                this.isLoading=false;
+                location.reload();
+  }).catch(e=>console.log('error al guardar',e));
 }
 
 ///////////////////////////////////////////////////////////////////
