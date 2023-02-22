@@ -28,118 +28,31 @@
    </section>
    
     <ng-template #addPlanModal let-modal>
-       <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO</h3>
-         <form class="row" [formGroup]="addExerciseForm" (ngSubmit)="saveAddExercise()">
+       <h3 class="text-title" style="background-color: black;">AGREGANDO PLAN</h3>
+         <form class="row" [formGroup]="addPlanForm" (ngSubmit)="saveAddPlan()">
            <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
-           <select class="red-btn h-lg" formControlName="exeToAddMuscleGroup">
-               <option value="" selected disabled hidden>GRUPO MUSCULAR</option>
-               <option *ngFor="let muscleGroup of this.muscleGroupList">
-                   {{muscleGroup}}
-               </option>
-           </select>
-           <input formControlName="exeToAddName" class="red-btn h-lg" type="text" placeholder=" NOMBRE DE EJERCICIO">
-           <input formControlName="exeToAddTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
-           <input formControlName="exeToAddImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
-           <select class="red-btn h-lg" formControlName="exeToAddDifficulty">
-               <option value="" selected disabled hidden>DIFICULTAD</option>
-               <option *ngFor="let difficulty of this.difficultyList">
-                   {{difficulty}}
-               </option>
-           </select>
-           <select class="red-btn h-lg"  formControlName="exeToAddGender">
-               <option value="" selected disabled hidden>GENERO</option>
-               <option *ngFor="let gender of this.genderList">
-                   {{gender}}
-               </option>
-           </select>
-           <select class="red-btn h-lg"  formControlName="exeToAddElement">
-               <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
-               <option *ngFor="let element of this.elementList">
-                   {{element}}
-               </option>
-           </select>
+          
+           <input formControlName="plaToAddName" class="red-btn h-lg" type="text" placeholder=" NOMBRE DEL PLAN">
+           <input formControlName="plaToAddPrice" class="red-btn h-lg" type="text" placeholder=" PRECIO MENSUAL">
            <button *ngIf="(
-               !validExeToAddName 
-               && !validExeToAddTipsUrl 
-               && !validExeToAddImgUrl 
-               && validExeToAddMuscleGroup 
-               && validExeToAddDifficulty 
-               && validExeToAddGender 
-               && validExeToAddElement)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+               !validPlaToAddName 
+               && !validPlaToAddPrice 
+               )" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
        </form>
    </ng-template> 
    
    <ng-template #editPlanModal let-modal>
-       <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO {{this.exerciseToEdit.name}}</h3>
-         <form class="row" [formGroup]="editExerciseForm" (ngSubmit)="saveEditExercise()">
+       <h3 class="text-title" style="background-color: black;">EDITANDO PLAN {{this.planToEdit.name}}</h3>
+         <form class="row" [formGroup]="editPlanForm" (ngSubmit)="saveEditPlan()">
            <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
-           <select class="red-btn h-lg" formControlName="exeToEditMuscleGroup">
-               <option selected disabled hidden>GRUPO MUSCULAR</option>
-               <option *ngFor="let muscleGroup of this.muscleGroupList">
-                   {{muscleGroup}}
-               </option>
-           </select>
-           <input formControlName="exeToEditName" class="red-btn h-lg" type="text">
-           <input formControlName="exeToEditTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
-           <input formControlName="exeToEditImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
-           <select class="red-btn h-lg" formControlName="exeDifficulty">
-               <option value="" selected disabled hidden>DIFICULTAD</option>
-               <option *ngFor="let difficulty of this.difficultyList">
-                   {{difficulty}}
-               </option>
-           </select>
-           <select class="red-btn h-lg"  formControlName="exeToEditGender">
-               <option value="" selected disabled hidden>GENERO</option>
-               <option *ngFor="let gender of this.genderList">
-                   {{gender}}
-               </option>
-           </select>
-   
-           <select class="red-btn h-lg"  formControlName="exeToEditElement">
-               <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
-               <option *ngFor="let element of this.elementList">
-                   {{element}}
-               </option>
-           </select>
-   
-           <button *ngIf="(!validExeToEditName && !validExeToEditTipsUrl && !validExeToEditImgUrl)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+           
+           <input formControlName="plaToEditName" class="red-btn h-lg" type="text" placeholder=" NOMBRE DEL PLAN">
+           <input formControlName="plaToEditPrice" class="red-btn h-lg" type="text" placeholder=" PRECIO MENSUAL">
+           <button *ngIf="(
+               !validPlaToEditName 
+               && !validPlaToEditPrice 
+               )" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
+          
        </form>
    </ng-template> 
    
-   <ng-template #viewExerciseModal let-modal>
-     
-       <div class="row" style="background-color:black">
-         <button type="button" class="red-btn mb-md" (click)="modal.dismiss('Cross click')">X</button>
-         <h3 class="text-title" style="background-color: black;">{{this.exerciseToView.name}}</h3>
-         <u>Nombre</u>
-         <h5> {{this.exerciseToView.name}}</h5>
-         <u>Grupo muscular</u>
-         <h5> {{this.exerciseToView.muscleGroup}}</h5>
-         <u>Dificultad</u>
-         <h5> {{this.exerciseToView.difficulty}}</h5>
-         <u>Video tips</u>
-         <h5> {{this.exerciseToView.tipsUrl}}</h5>
-         <u>Imagen gif</u>
-         <h5> {{this.exerciseToView.imgUrl}}</h5>
-         <u>Genero</u>
-         <h5> {{this.exerciseToView.gender}}</h5>
-         <u>Elementos</u>
-         <h5> {{this.exerciseToView.element}}</h5>
-         <u>Errores comunes</u>
-         <h5> {{this.exerciseToView.commonErrors}}</h5>
-       </div>
-          
-     </ng-template> 
-   
-     <!-- 
-   
-       exeToAddMuscleGroup 
-   exeToAddName        
-   exeToAddDifficulty  
-   exeToAddTipsUrl     
-   exeToAddImgUrl      
-   exeToAddGender      
-   exeToAddElement     
-   exeToAddCommonErrors
-   
-     -->

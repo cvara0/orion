@@ -1,29 +1,31 @@
  
  <section class="container mt-lg">
-    <h2 class="text-title">CUOTAS DE {{this.studentByStudentId?.name}} <button (click)="open(addPexerciseModal);this.exerciseList=this.crudService.getRowList('exercises');" class="btn red-btn ml-sm">ACTUALIZAR PLAN</button></h2>
+    <h2 class="text-title">CUOTAS DE {{this.studentByStudentId?.name}} <button (click)="open(addPayModal);this.planList=this.crudService.getRowList('plans');" class="btn red-btn ml-sm">ACTUALIZAR PLAN</button></h2>
     
     <div class="table-responsive mt-md">
        <table class="table table-dark">
            <thead>
              <tr>
-               <th scope="col">FECHA DE PAGO</th>
-               <th scope="col">PRECIO</th>
-               <th scope="col">PLAN</th>
-               <th scope="col">ESTADO</th>
-               <th scope="col">ACCIONES</th>
-               
+                <th scope="col">PLAN</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">FECHA DE PAGO</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">ACCIONES</th>  
              </tr>
            </thead>
            <tbody>
              <tr *ngFor="let pay of this.payList">
-               <td> 
+                
+                <td>{{this.getPlanById(pay.planId)?.name}}</td>
+                <td>{{this.getPlanById(pay.planId)?.price}}</td>
+                <td>{{pay.payDate}}</td>
+                <td>{{pay.state}}</td>
+                <td> 
                    si no esta cancelado<button (click)="this.payToEdit=pay;this.createEditPayForm();open(editPayModal)" class="btn red-btn">E</button> 
-                   <button (click)="this.cancelPay(exercise,i)" class="btn red-btn ml-sm">X</button>
+                   <button (click)="this.cancelPay(pay)" class="btn red-btn ml-sm">X</button>
 
                </td>
-               <td [textContent]=exercise.name></td>
-               <td [textContent]=exercise.muscleGroup></td>
-               <td [textContent]=exercise.difficulty></td>
+               
              </tr>
            
            </tbody>

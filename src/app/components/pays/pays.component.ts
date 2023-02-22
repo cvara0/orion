@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pay } from 'src/app/models/pay.models';
+import { Plan } from 'src/app/models/plan.models';
 import { Student } from 'src/app/models/student.models';
 import { CrudService } from 'src/app/services/crud.service';
 
@@ -17,16 +18,16 @@ export class PaysComponent implements OnInit {
   studentByStudentId:Student | undefined ;
   paramStudentId:string;
 
-  closeResult          :string='';
+  closeResult    :string='';
   addPayForm!    :FormGroup;
   editPayForm!   :FormGroup;
 
   payList!        :Pay[];
-  planList        :string[];
+  planList!       :Plan[];
 
-  payToEdit!     :Pay;
+  payToEdit!      :Pay;
 
-  isLoading:boolean=false;
+  isLoading       :boolean=false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,13 +36,25 @@ export class PaysComponent implements OnInit {
     public crudService:CrudService
     ) { 
 
-      this.planList=[
-        "1x1",//una persona una vez por semana etc
-        "1x2",
-        "1x3",
-        "etc",
-      ];
+      
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
+//TODO seguir con agregar pago
+      for (let i of this.studentList) {
+        const [day, month, year] = i.payDate.split('/');
+        const dayDiff=Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000)+1
+        if(dayDiff>0)
+          this.payState='AL DIA ( FALTAN '+dayDiff+' DIAS )';
+        else
+          if (dayDiff==0)
+             this.payState='DIA DE PAGO';
+          else
+            if(dayDiff<0)
+              this.payState='CUOTA ATRASADA POR '+((-1)*dayDiff)+' DIAS';
+  
+  
+  
+        console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
+      }
       
     }
 
@@ -57,64 +70,32 @@ export class PaysComponent implements OnInit {
     
   }
 /*
-      public studentId     : string,
+        public studentId     : string,
+        public planId        : string,
         public payDate       : string,
-        public price         : string,
-        public plan          : string,
         public state         : string,
         public id?           : string
-    ){
 */
    ////////////////////////////////////////////////////////////////
   createAddPayForm(){
   
     this.addPayForm=this.formBuilder.group({
-      pexToAddExerciseId     : ['',[Validators.required]],
-      pexToAddisReady        : ['',[Validators.required]],
-      pexToAddLoad           : ['',[Validators.required]],
-      pexToAddDosage         : ['',[Validators.required]],
-      pexToAddTime           : [  ,[Validators.required]],
-      pexToAddRestTime       : ['',[Validators.required]],
-      pexToAddType           : ['',[Validators.required]]
-      
+      payToAddPlanId        : ['',[Validators.required]]
     });
   }
-  get validPexToAddExercise(){
-    return this.addPexerciseForm.get('pexToAddExerciseId')?.dirty;
+  get validPayToAddPlanId(){
+    return this.addPayForm.get('payToAddPlanId')?.dirty;
   }
 
-  get validPexToAddisReady(){
-    return this.addPexerciseForm.get('pexToAddisReady')?.dirty;
-  }
+  saveAddPay(){
 
-  get validPexToAddLoad(){
-    return this.addPexerciseForm.get('pexToAddLoad')?.dirty;
-  }
-
-  get validPexToAddDosage(){
-    return this.addPexerciseForm.get('pexToAddDosage')?.dirty;
-  }
-
-  /*get validPexToAddTime(){
-    return this.addPexerciseForm.get('pexToAddTime')?.dirty;
-  }*/
-
- 
-  get validPexToAddRestTime(){
-    return this.addPexerciseForm.get('pexToAddRestTime')?.dirty;
-  }
-
-  get validPexToAddTypee(){
-    return this.addPexerciseForm.get('pexToAddType')?.dirty;
-  }
-
-  saveAddPexercise(){
+    
 
     this.isLoading=true;
     this.crudService.postRow(
-      new Pexercise(
+      new Pay(
         this.paramStudentId,
-        this.addPexerciseForm.get('pexToAddExerciseId')?.value,
+        this.addPayForm.get('payToAddPlanId')?.value,
         false,
         this.addPexerciseForm.get('pexToAddLoad')?.value,
         this.addPexerciseForm.get('pexToAddDosage')?.value,
@@ -122,7 +103,7 @@ export class PaysComponent implements OnInit {
         this.addPexerciseForm.get('pexToAddRestTime')?.value,
         this.addPexerciseForm.get('pexToAddType')?.value,
       ),
-      'pexercises'
+      'pays'
     ).then(resp=>{this.isLoading=false;
                   location.reload();})
     .catch(e=>console.log('error al guardar',e));

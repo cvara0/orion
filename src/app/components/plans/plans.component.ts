@@ -83,7 +83,7 @@ export class PlansComponent implements OnInit {
   }
 
  
-saveEditplan(){
+saveEditPlan(){
 
   this.isLoading=true;
   

@@ -35,28 +35,7 @@ export class StudentsComponent implements OnInit {
     this.payState='';
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
 
-    
     this.studentList=this.crudService.getRowList('students');
-    
-   
-        for (let i of this.studentList) {
-          const [day, month, year] = i.payDate.split('/');
-          const dayDiff=Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000)+1
-          if(dayDiff>0)
-            this.payState='AL DIA ( FALTAN '+dayDiff+' DIAS )';
-          else
-            if (dayDiff==0)
-               this.payState='DIA DE PAGO';
-            else
-              if(dayDiff<0)
-                this.payState='CUOTA ATRASADA POR '+((-1)*dayDiff)+' DIAS';
-
-
-
-          console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
-        }
-        
-    
     
    }
 
@@ -64,8 +43,6 @@ export class StudentsComponent implements OnInit {
     this.createAddStudentForm();
     
   }
-
-  
 
    ////////////////////////////////////////////////////////////////
   createAddStudentForm(){
