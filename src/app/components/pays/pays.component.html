@@ -38,7 +38,7 @@
    
     <ng-template #addPayModal let-modal>
        <h3 class="text-title" style="background-color: black;">AGREGANDO PLAN MENSUAL</h3>
-         <form class="row" [formGroup]="addPayForm" (ngSubmit)="saveAddPay()">
+         <form class="row" [formGroup]="addPayForm" (ngSubmit)="saveAddPay(this.payList[0])">
            <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
             <select class="red-btn h-lg" formControlName="payToAddPlanId">
                 <option value="" selected disabled hidden>PLAN</option>

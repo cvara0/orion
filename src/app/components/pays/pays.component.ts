@@ -40,13 +40,6 @@ export class PaysComponent implements OnInit {
       
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
 
-      /*
-  
-  
-  
-        console.log(Math.floor((new Date(+year,+month-1,+day).getTime()-Date.now())/86400000));
-      }*/
-      
     }
 
   ngOnInit(): void {
@@ -79,8 +72,9 @@ getPlanById(planId:string){
 }
 
 getPayState(pay:Pay){
+  let actualPlanId=pay.planId;
   const dayDiff=Math.floor((pay.payDate-Date.now())/86400000)+1
-  if(pay.isPaid)
+  if(pay.isPaid) //seguir con estado actualizado para el caso de que al alcualizar no figure pagado sino actualziado
     return 'PAGADO'
   if(dayDiff>0)
     return 'AL DIA ( FALTAN '+dayDiff+' DIAS )';
@@ -134,9 +128,27 @@ this.crudService.postRow(
     return this.addPayForm.get('payToAddPlanId')?.dirty;
   }
 
-  saveAddPay(){
+  saveAddPay(payToCancel?:Pay){
 
     this.isLoading=true;
+
+    if(this.payList.length>0){
+      
+      this.crudService.putRow(
+        new Pay(
+          payToCancel!.studentId,
+          payToCancel!.planId,
+          payToCancel!.payDate,
+          true,
+          payToCancel!.id
+        ),
+        'pays'
+      ).then(resp=>{this.isLoading=false;
+                  location.reload();
+                  })
+      .catch(e=>console.log('error al guardar',e));
+    }
+
     this.crudService.postRow(
       new Pay(
         this.paramStudentId,
