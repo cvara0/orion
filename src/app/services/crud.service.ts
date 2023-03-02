@@ -50,6 +50,7 @@ export class CrudService {
     querySnapshot.forEach((doc) => {
       this.rowList.push({ ...doc.data(), id: doc.id });
     });
+  
     return await this.rowList;
    
 }

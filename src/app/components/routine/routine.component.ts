@@ -12,16 +12,14 @@ import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-routine',
-  templateUrl: './routine.component.html',
-  styles: [
-  ]
+  templateUrl: './routine.component.html'
 })
 export class RoutineComponent implements OnInit {
 
   //pexersiceListByStudentId:Pexercise[] | undefined ;
 
-  studentByStudentId:Student | undefined ;
-  paramStudentId:string;
+  studentByStudentId!  :Student;
+  paramStudentId       :string;
 
   closeResult          :string='';
   addPexerciseForm!    :FormGroup;
@@ -30,10 +28,10 @@ export class RoutineComponent implements OnInit {
   pexerciseList!        :Pexercise[];
   exerciseList!         :Exercise[];
   //exerciseListByIdList!         :Exercise[];
-  exerciseById!         :Exercise ;
+  //exerciseById!         :Exercise ;
 
   pexerciseToEdit!     :Pexercise;
-  pexerciseToView!     :Pexercise;
+  //pexerciseToView!     :Pexercise;
 
   dosageList           :string[];
   loadList             :number[];
@@ -59,11 +57,8 @@ id?           : string
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private pexerciseService:PexerciseService,
-    private studentService:StudentService,
     private modalService: NgbModal,
     private formBuilder:FormBuilder,
-    private exerciseService:ExerciseService,
     public crudService:CrudService
     ) { 
 
@@ -79,12 +74,14 @@ id?           : string
     this.createAddPexerciseForm();
     
     this.exerciseList=this.crudService.getRowList('exercises');
+    
     this.crudService.getRowByCol(this.paramStudentId,'studentId','pexercises').then(resp => { 
       this.pexerciseList=resp; 
   });
-    this.crudService.getRowByCol(this.paramStudentId,'id','students').then(resp => { 
-      this.studentByStudentId=resp[0]; 
-  });
+  this.crudService.getRowByCol(this.paramStudentId,'__name__','students').then(resp => { 
+    this.studentByStudentId=resp[0]; 
+});
+  
     
   }
 

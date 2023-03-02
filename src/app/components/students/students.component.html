@@ -12,7 +12,7 @@
            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let student of this.studentList;let i = index">
+           <tr *ngFor="let student of this.studentList">
              <!--<th scope="row" [textContent]=exercise.id></th>-->
             
              <td>{{student.name}}</td>
@@ -20,7 +20,7 @@
              <td>{{student.age}}</td>
              <td>{{this.payState}}</td>
              <td> 
-              <button (click)="this.deleteStudent(student,i)" class="btn red-btn ml-sm">X</button>
+              <button (click)="this.deleteStudent(student)" class="btn red-btn ml-sm">X</button>
               <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn ml-sm">E</button> 
               <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
               <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>

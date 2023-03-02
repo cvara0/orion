@@ -249,12 +249,17 @@ export class StudentsComponent implements OnInit {
 
 ///////////////////////////////////////////////////////////////////
 
-deleteStudent(studentToDelete:Student,i:number){
+deleteStudent(studentToDelete:Student){
   this.isLoading=true;
     if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
+      this.crudService.getRowByCol(studentToDelete.id!,'studentId','pexercises').then(resp => { 
+          resp.forEach((resp1:Pexercise) => {
+            this.crudService.deleteRow(resp1.id,'pexersice');
+          });
+      });
       this.crudService.deleteRow(studentToDelete,'students').then(resp=>
         {this.isLoading=false;
-        location.reload();
+         location.reload();
         })
      .catch(e=>console.log('error al eliminar',e));
    
