@@ -92,14 +92,14 @@
                 {{difficulty}}
             </option>
         </select>
-        <select class="red-btn h-lg"  formControlName="exeToEditGender">
+        <select class="red-btn h-lg" formControlName="exeToEditGender">
             <option value="" selected disabled hidden>GENERO</option>
             <option *ngFor="let gender of this.genderList">
                 {{gender}}
             </option>
         </select>
 
-        <select class="red-btn h-lg"  formControlName="exeToEditElement">
+        <select class="red-btn h-lg" formControlName="exeToEditElement">
             <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
             <option *ngFor="let element of this.elementList">
                 {{element}}

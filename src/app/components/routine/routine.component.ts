@@ -43,17 +43,7 @@ export class RoutineComponent implements OnInit {
   isLoading:boolean=false;
 
 
-/*
-studentId     : string,
-excerciseId   : string,
-isReady       : boolean
-load          : number,
-dosage        : string,
-time          : number,
-restTime      : number,
-type          : string,
-id?           : string
-*/
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -84,6 +74,7 @@ id?           : string
   
     
   }
+ ////////////////////////////////////////////////////////////////
 
   hideToggle(i:number){
     const element = document.getElementById('toggle'+i);
@@ -99,23 +90,56 @@ id?           : string
       else
         element.style.display='none';
     }
-    
   }
 
   getExerciseById(exerciseId:string){
-    
     return this.exerciseList.find(i=>i.id==exerciseId);
   }
+
+  /*
+studentId     : string,
+exerciseId    : string,
+isReady       : boolean,
+load          : number,
+dosage        : string,
+time          : number,
+restTime      : number,
+type          : string,
+id?           : string
+*/
+
+  setIsReady(pexerciseReady:Pexercise){
+    this.isLoading=true;
+  
+    this.crudService.putRow(
+      new Pexercise(
+          this.paramStudentId,
+          pexerciseReady.exerciseId,
+          true,
+          pexerciseReady.load,
+          pexerciseReady.dosage,
+          pexerciseReady.time,
+          pexerciseReady.restTime,
+          pexerciseReady.type,
+          pexerciseReady.id
+      ),
+      'pexercises'
+    ).then(resp=>{
+                  this.isLoading=false;
+                  location.reload();
+    }).catch(e=>console.log('error al guardar',e));
+  }
+
    ////////////////////////////////////////////////////////////////
   createAddPexerciseForm(){
   
     this.addPexerciseForm=this.formBuilder.group({
       pexToAddExerciseId     : ['',[Validators.required]],
-      pexToAddisReady        : ['',[Validators.required]],
-      pexToAddLoad           : ['',[Validators.required]],
+      pexToAddIsReady        : ['',[Validators.required]],
+      pexToAddLoad           : [0,[Validators.required]],
       pexToAddDosage         : ['',[Validators.required]],
-      pexToAddTime           : [  ,[Validators.required]],
-      pexToAddRestTime       : ['',[Validators.required]],
+      pexToAddTime           : [ 0 ,[Validators.required]],
+      pexToAddRestTime       : [ 0,[Validators.required]],
       pexToAddType           : ['',[Validators.required]]
       
     });
@@ -124,8 +148,8 @@ id?           : string
     return this.addPexerciseForm.get('pexToAddExerciseId')?.dirty;
   }
 
-  get validPexToAddisReady(){
-    return this.addPexerciseForm.get('pexToAddisReady')?.dirty;
+  get validPexToAddIsReady(){
+    return this.addPexerciseForm.get('pexToAddIsReady')?.dirty;
   }
 
   get validPexToAddLoad(){
@@ -145,7 +169,7 @@ id?           : string
     return this.addPexerciseForm.get('pexToAddRestTime')?.dirty;
   }
 
-  get validPexToAddTypee(){
+  get validPexToAddType(){
     return this.addPexerciseForm.get('pexToAddType')?.dirty;
   }
 
@@ -187,8 +211,8 @@ id?           : string
     return this.editPexerciseForm.get('pexToEditExerciseId')?.dirty;
   }
 
-  get validPexToEditisReady(){
-    return this.editPexerciseForm.get('pexToEditisReady')?.dirty;
+  get validPexToEditIsReady(){
+    return this.editPexerciseForm.get('pexToEditIsReady')?.dirty;
   }
 
   get validPexToEditLoad(){
@@ -227,6 +251,7 @@ saveEditPexercise(){
         this.editPexerciseForm.get('pexToEditTime')?.value,
         this.editPexerciseForm.get('pexToEditRestTime')?.value,
         this.editPexerciseForm.get('pexToEditType')?.value,
+        this.pexerciseToEdit.id
     ),
     'pexercises'
   ).then(resp=>{

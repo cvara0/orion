@@ -11,7 +11,7 @@
                 <div class="row justify-content-center">
                     <button (click)="showHideToggle(i)" style="text-align: start;" class="btn red-btn col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" ><h4>{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}}  <b style="color: greenyellow;" *ngIf="pexercise.isReady"> LISTO!</b></h4> </button>
                     <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">no puedo</button>
-                    <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12" (click)="pexercise.isReady=true;hideToggle(i)">listo!</button>
+                    <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12" (click)="pexercise.isReady=true;setIsReady(pexercise);hideToggle(i)">listo!</button>
                 </div>
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                     
@@ -63,7 +63,7 @@ pexToEditType
 -->
 
 <ng-template #addPexerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO PARA {{this.studentByStudentId.name}}</h3>
+    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
       <form class="row" [formGroup]="addPexerciseForm" (ngSubmit)="saveAddPexercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
         <select class="red-btn h-lg" formControlName="pexToAddExerciseId">
@@ -84,17 +84,17 @@ pexToEditType
 </ng-template> 
 
 <ng-template #editPexerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO PARA {{this.studentByStudentId.name}}</h3>
-      <form class="row" [formGroup]="addPexerciseForm" (ngSubmit)="saveAddPexercise()">
+    <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+      <form class="row" [formGroup]="editPexerciseForm" (ngSubmit)="saveEditPexercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
-        <select class="red-btn h-lg" formControlName="pexToAddExerciseId">
+        <select class="red-btn h-lg" formControlName="pexToEditExerciseId">
             <option value="" selected disabled hidden>EJERCICIO</option>
-            <option [value]="exercise.id" *ngFor="let exercise of this.crudService.getRowList('exercises')">
+            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList">
                 {{exercise.name}}
             </option>
         </select>
 
-        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+        <select class="red-btn h-lg" formControlName="pexToEditLoad">
             <option value="" selected disabled hidden>CARGA</option>
             <option *ngFor="let load of this.loadList">
                 {{load}}
