@@ -6,7 +6,7 @@ export class Student{
         public name               : string,
         public surname            : string,
         public weight             : number,
-        public age                : string,
+        public age                : number,
         public gender             : string,
         public level              : string,
         public sport              : string,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Pay } from 'src/app/models/pay.models';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
 import { CrudService } from 'src/app/services/crud.service';
@@ -23,18 +24,36 @@ export class StudentsComponent implements OnInit {
   studentToEdit!     :Student;
   studentToView!     :Student;
 
+  genderList         :string[];
   levelList          :string[];
 
-  payState           :string;
-  
+  pexToDeleteList    :Pexercise[];
 
   isLoading:boolean=false;
 
+  /*
+         name               : string,
+         surname            : string,
+         weight             : number,
+         age                : string,
+         gender             : string,
+         level              : string,
+         sport              : string,
+         profession         : string,
+         drug               : string,
+         limitation         : string,
+         prescription       : string,
+         phone              : number,
+         coment             : string,
+         id?                : string
+  */
+
   constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public crudService:CrudService,public payService:PayService) {
     this.studentList=[];
-    this.payState='';
+    this.pexToDeleteList=[];
+    this.genderList=['MASCLINO','FEMENINO','NO BINARIO','ETC'];
     this.levelList=['PRIMERA VEZ','POCA EXPERIENCIA','CON EXPERIENCIA','MUCHA EXPERIENCIA','EXPERTO'];
-
+    
     this.studentList=this.crudService.getRowList('students');
     
    }
@@ -43,6 +62,10 @@ export class StudentsComponent implements OnInit {
     this.createAddStudentForm();
     
   }
+
+getAge(timeBirdth:number):number{
+  return Math.round((new Date().getTime()-new Date(timeBirdth).getTime())/3.154E+10);
+}
 
    ////////////////////////////////////////////////////////////////
   createAddStudentForm(){
@@ -121,15 +144,16 @@ export class StudentsComponent implements OnInit {
   saveAddStudent(){
 
     this.isLoading=true;
-    const entryDate = new Date();
-    const payDate= new Date();
-    payDate.setMonth(payDate.getMonth()+1);
+
+    const [year,month, day]=this.addStudentForm.get('stuToAddAge')?.value.split('-');
+    const stuToAddAge = new Date(year,month-1,day);
+    
     this.crudService.postRow(
       new Student(
         this.addStudentForm.get('stuToAddName')?.value,
         this.addStudentForm.get('stuToAddSurname')?.value,
         this.addStudentForm.get('stuToAddWeight')?.value,
-        this.addStudentForm.get('stuToAddAge')?.value,
+        stuToAddAge.getTime(),
         this.addStudentForm.get('stuToAddGender')?.value,
         this.addStudentForm.get('stuToAddLevel')?.value,
         this.addStudentForm.get('stuToAddSport')?.value,
@@ -252,16 +276,25 @@ export class StudentsComponent implements OnInit {
 deleteStudent(studentToDelete:Student){
   this.isLoading=true;
     if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
+      let pexToDeleteList: Pexercise[]=[];
+    
       this.crudService.getRowByCol(studentToDelete.id!,'studentId','pexercises').then(resp => { 
-          resp.forEach((resp1:Pexercise) => {
-            this.crudService.deleteRow(resp1.id,'pexersice');
-          });
+       resp.forEach((resp2: Pexercise)=>this.crudService.deleteRow(resp2,'pexercises'))
       });
-      this.crudService.deleteRow(studentToDelete,'students').then(resp=>
+      this.crudService.getRowByCol(studentToDelete.id!,'studentId','pays').then(resp => { 
+        resp.forEach((resp2: Pay)=>this.crudService.deleteRow(resp2,'pays'))
+       });
+     
+      //this.pexToDeleteList.forEach(resp=>this.crudService.deleteRow(resp.id,'pexersice'));
+      //console.log(pexToDeleteList);
+      //pexToDeleteList.forEach(resp2=>console.log(resp2.id));
+      //this.crudService.deleteRow(resp.id,'pexersice')
+
+      /*this.crudService.deleteRow(studentToDelete,'students').then(resp=>
         {this.isLoading=false;
-         location.reload();
+         //location.reload();
         })
-     .catch(e=>console.log('error al eliminar',e));
+     .catch(e=>console.log('error al eliminar',e));*/
    
   }else
     this.isLoading=false;

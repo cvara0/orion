@@ -7,7 +7,6 @@
              <th scope="col">NOMBRE</th>
              <th scope="col">APELLIDO</th>
              <th scope="col">EDAD</th>
-             <th scope="col">CUOTAS</th>
              <th scope="col">ACCIONES</th>  
            </tr>
          </thead>
@@ -17,14 +16,14 @@
             
              <td>{{student.name}}</td>
              <td>{{student.surname}}</td>
-             <td>{{student.age}}</td>
-             <td>{{this.payState}}</td>
+             <td>{{getAge(student.age)}}</td>
+  
              <td> 
               <button (click)="this.deleteStudent(student)" class="btn red-btn ml-sm">X</button>
               <button (click)="this.studentToEdit=student;this.createEditStudentForm();open(editStudentModal)" class="btn red-btn ml-sm">E</button> 
               <button (click)="this.studentToView=student;open(viewStudentModal)" class="btn red-btn ml-sm">VER</button>
               <a [routerLink]="['/routine',student.id]" class="btn red-btn ml-sm">VER RUTINA</a>
-              <a [routerLink]="['/pays',student.id]" class="btn red-btn ml-sm">VER PAGOS</a>
+              <a [routerLink]="['/pays',student.id]" class="btn red-btn ml-sm">VER CUOTAS</a>
           </td>
 
           <ng-template #viewStudentModal let-modal>
@@ -111,8 +110,8 @@
          <input formControlName="stuToAddAge" class="red-btn h-lg" type="date" placeholder=" fecha de nacimiento">
          <select class="red-btn h-lg" formControlName="stuToAddGender">
             <option value="" selected disabled hidden>genero</option>
-            <option *ngFor="let level of this.levelList">
-                {{level}}
+            <option *ngFor="let gender of this.genderList">
+                {{gender}}
             </option>
          </select>
          <select class="red-btn h-lg" formControlName="stuToAddLevel">
@@ -158,8 +157,8 @@
       <input formControlName="stuToEditAge" class="red-btn h-lg" type="date" placeholder=" fecha de nacimiento">
       <select class="red-btn h-lg" formControlName="stuToEditGender">
         <option value="" selected disabled hidden>genero</option>
-        <option *ngFor="let level of this.levelList">
-            {{level}}
+        <option *ngFor="let gender of this.genderList">
+            {{gender}}
         </option>
      </select>
 
