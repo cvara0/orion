@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Exercise } from 'src/app/models/exercise.models';
@@ -27,7 +28,7 @@ export class RoutineComponent implements OnInit {
 
   pexerciseList!        :Pexercise[];
   exerciseList!         :Exercise[];
-  //exerciseListByIdList!         :Exercise[];
+  exerciseListById!         :Exercise[];
   //exerciseById!         :Exercise ;
 
   pexerciseToEdit!     :Pexercise;
@@ -42,14 +43,16 @@ export class RoutineComponent implements OnInit {
 
   isLoading:boolean=false;
 
-
+  dangerousVideoUrl:string='';
+  videoUrl:SafeResourceUrl='';
 
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private formBuilder:FormBuilder,
-    public crudService:CrudService
+    public crudService:CrudService,
+    private sanitizer:DomSanitizer
     ) { 
 
       this.dosageList=['dosaje1','dosaje2','dosaje3','etc'];
@@ -66,8 +69,9 @@ export class RoutineComponent implements OnInit {
     this.exerciseList=this.crudService.getRowList('exercises');
     
     this.crudService.getRowByCol(this.paramStudentId,'studentId','pexercises').then(resp => { 
-      this.pexerciseList=resp; 
-  });
+      this.pexerciseList=resp;
+    });
+    
   this.crudService.getRowByCol(this.paramStudentId,'__name__','students').then(resp => { 
     this.studentByStudentId=resp[0]; 
 });
@@ -93,7 +97,13 @@ export class RoutineComponent implements OnInit {
   }
 
   getExerciseById(exerciseId:string){
+    
     return this.exerciseList.find(i=>i.id==exerciseId);
+  }
+  getTipUrlExerciseById(exerciseId:string){
+    this.dangerousVideoUrl = 'https://www.youtube.com/embed/' + this.exerciseList.find(i=>i.id==exerciseId)!.tipsUrl;
+  return this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousVideoUrl);
+   
   }
 
   /*

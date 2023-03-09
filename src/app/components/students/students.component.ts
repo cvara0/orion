@@ -285,16 +285,12 @@ deleteStudent(studentToDelete:Student){
         resp.forEach((resp2: Pay)=>this.crudService.deleteRow(resp2,'pays'))
        });
      
-      //this.pexToDeleteList.forEach(resp=>this.crudService.deleteRow(resp.id,'pexersice'));
-      //console.log(pexToDeleteList);
-      //pexToDeleteList.forEach(resp2=>console.log(resp2.id));
-      //this.crudService.deleteRow(resp.id,'pexersice')
-
-      /*this.crudService.deleteRow(studentToDelete,'students').then(resp=>
+    
+      this.crudService.deleteRow(studentToDelete,'students').then(resp=>
         {this.isLoading=false;
-         //location.reload();
+          location.reload();
         })
-     .catch(e=>console.log('error al eliminar',e));*/
+     .catch(e=>console.log('error al eliminar',e));
    
   }else
     this.isLoading=false;

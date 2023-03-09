@@ -23,13 +23,14 @@
                     
                     <section class="row justify-content-center">
                         <h4 class="text-title">{{this.getExerciseById(pexercise.exerciseId)?.name}}</h4>
-                        <figure class="col-12 home-img container" style="background-image: url('assets/img/gym_gif_1.gif');"></figure>   
+                        <figure class="col-12 home-img container" style="background-image: url('{{this.getExerciseById(pexercise.exerciseId)?.imgUrl}}');"></figure>   
                     </section>
                     <section class="row justify-content-center mt-md">
                         <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
-                        <iframe class="container" height="512px"
-                            src="https://www.youtube.com/embed/azdwsXLmrHE">
+                        <iframe class="e2e-iframe-trusted-src" height="512px"    
+                        [src]="this.getTipUrlExerciseById(pexercise.exerciseId)">
                         </iframe>
+                        <h1>{{this.videoUrl}}</h1>
                         <button (click)="hideToggle(i)" class="btn red-btn" >↑↑↑ OCULTAR ↑↑↑</button>
                     </section>
                 </div>

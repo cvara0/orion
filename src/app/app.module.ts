@@ -13,6 +13,8 @@ import { RoutineComponent } from './components/routine/routine.component';
 import { PaysComponent } from './components/pays/pays.component';
 import { PlansComponent } from './components/plans/plans.component';
 import { AuthModule } from '@auth0/auth0-angular';
+import { AllpaysComponent } from './components/allpays/allpays.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AuthModule } from '@auth0/auth0-angular';
     StudentsComponent,
     RoutineComponent,
     PaysComponent,
-    PlansComponent
+    PlansComponent,
+    AllpaysComponent,
+    SafePipe
   ],
   imports: [
     FormsModule,

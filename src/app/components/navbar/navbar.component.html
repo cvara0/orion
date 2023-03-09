@@ -6,6 +6,7 @@
         <button [routerLink]="['students']"class="btn red-btn ml-sm">ALUMNOS</button>
         <button [routerLink]="['exercises']" class="btn red-btn ml-sm">EJERCICIOS</button>
         <button [routerLink]="['plans']" class="btn red-btn ml-sm">PLANES</button>
+        <button [routerLink]="['allpays']" class="btn red-btn ml-sm">TODAS LAS CUOTAS</button>
         
         <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
             <button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">

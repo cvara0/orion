@@ -67,7 +67,7 @@ export class ExercisesComponent implements OnInit {
       exeToAddMuscleGroup  : ['',[Validators.required]],//primera posicion valor por defecto, segunda, validadores sincronos, tercera validadores asincronos
       exeToAddName         : ['',[Validators.required]],
       exeToAddDifficulty   : ['',[Validators.required]],
-      exeToAddTipsUrl      : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
+      exeToAddTipsUrl      : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048)]],//,Validators.pattern('https?://.+')
       exeToAddImgUrl       : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToAddGender       : ['',[Validators.required]],
       exeToAddElement      : ['',[Validators.required]],
@@ -131,7 +131,7 @@ export class ExercisesComponent implements OnInit {
       exeToEditMuscleGroup  : [this.exerciseToEdit.muscleGroup,[Validators.required]],//primera posicion valor por defecto, segunda, validadores sincronos, tercera validadores asincronos
       exeToEditName         : [this.exerciseToEdit.name,[Validators.required]],
       exeToEditDifficulty   : [this.exerciseToEdit.difficulty,[Validators.required]],
-      exeToEditTipsUrl      : [this.exerciseToEdit.tipsUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
+      exeToEditTipsUrl      : [this.exerciseToEdit.tipsUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048)]],//,Validators.pattern('https?://.+')
       exeToEditImgUrl       : [this.exerciseToEdit.imgUrl,[Validators.required,Validators.minLength(1),Validators.maxLength(2048),Validators.pattern('https?://.+')]],
       exeToEditGender       : [this.exerciseToEdit.gender,[Validators.required]],
       exeToAddElement       : [this.exerciseToEdit.element,[Validators.required]],
