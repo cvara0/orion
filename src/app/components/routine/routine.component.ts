@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { hide } from '@popperjs/core';
 import { Exercise } from 'src/app/models/exercise.models';
 import { Pexercise } from 'src/app/models/pexercise.models';
 import { Student } from 'src/app/models/student.models';
@@ -82,17 +83,24 @@ export class RoutineComponent implements OnInit {
 
   hideToggle(i:number){
     const element = document.getElementById('toggle'+i);
-    if(element!=null)
+    const element2 = document.getElementById('iframe'+i);
+    if(element!=null){
         element.style.display='none';
+      
+      }
   }
 
   showHideToggle(i:number){
     const element = document.getElementById('toggle'+i);
+    const element2 = document.getElementById('iframe'+i);
     if(element!=null){
-      if(element.style.display=='none')
+      if(element.style.display=='none'){
         element.style.display='block';
-      else
+      }
+        
+      else{
         element.style.display='none';
+      }
     }
   }
 
@@ -100,9 +108,9 @@ export class RoutineComponent implements OnInit {
     
     return this.exerciseList.find(i=>i.id==exerciseId);
   }
-  getTipUrlExerciseById(exerciseId:string){
-    this.dangerousVideoUrl = 'https://www.youtube.com/embed/' + this.exerciseList.find(i=>i.id==exerciseId)!.tipsUrl;
-  return this.sanitizer.bypassSecurityTrustResourceUrl(this.dangerousVideoUrl);
+  getUnsafeTipUrlByExerciseId(exerciseId:string){
+   
+  return 'https://www.youtube-nocookie.com/embed/' + this.exerciseList.find(i=>i.id==exerciseId)!.tipsUrl+'?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0';
    
   }
 

@@ -27,8 +27,8 @@
                     </section>
                     <section class="row justify-content-center mt-md">
                         <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
-                        <iframe class="e2e-iframe-trusted-src" height="512px"    
-                        [src]="this.getTipUrlExerciseById(pexercise.exerciseId)">
+                        <iframe id="iframe{{i}}" class="e2e-iframe-trusted-src" height="512px"    
+                        [src]="getUnsafeTipUrlByExerciseId(pexercise.exerciseId) | safe">
                         </iframe>
                         <h1>{{this.videoUrl}}</h1>
                         <button (click)="hideToggle(i)" class="btn red-btn" >↑↑↑ OCULTAR ↑↑↑</button>
