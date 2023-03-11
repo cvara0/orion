@@ -83,19 +83,19 @@ export class RoutineComponent implements OnInit {
 
   hideToggle(i:number){
     const element = document.getElementById('toggle'+i);
-    const element2 = document.getElementById('iframe'+i);
+    //const element2 = document.getElementById('iframe'+i);
     if(element!=null){
         element.style.display='none';
-      
       }
   }
 
   showHideToggle(i:number){
     const element = document.getElementById('toggle'+i);
-    const element2 = document.getElementById('iframe'+i);
+    //const element2 = document.getElementById('iframe'+i);
     if(element!=null){
       if(element.style.display=='none'){
         element.style.display='block';
+        
       }
         
       else{
@@ -144,7 +144,6 @@ id?           : string
       'pexercises'
     ).then(resp=>{
                   this.isLoading=false;
-                  location.reload();
     }).catch(e=>console.log('error al guardar',e));
   }
 

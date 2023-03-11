@@ -198,7 +198,7 @@ saveEditExercise(){
 deleteExercise(exerciseToDelete:Exercise,i:number){
   this.isLoading=true;
     if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
-      this.crudService.deleteRow(exerciseToDelete,'students').then(resp=>
+      this.crudService.deleteRow(exerciseToDelete,'exercises').then(resp=>
         {this.isLoading=false;
         location.reload();
         })

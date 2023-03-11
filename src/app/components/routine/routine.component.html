@@ -9,7 +9,7 @@
                 
                 
                 <div class="row justify-content-center">
-                    <button (click)="showHideToggle(i)" style="text-align: start;" class="btn red-btn col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" ><h4>{{i+1}} - {{this.getExerciseById(pexercise.exerciseId)?.name}}  <b style="color: greenyellow;" *ngIf="pexercise.isReady"> LISTO!</b></h4> </button>
+                    <button (click)="showHideToggle(i)" style="text-align: start;" class="btn red-btn col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" ><h4>{{i+1}} - {{getExerciseById(pexercise.exerciseId)?.name}}  <b style="color: greenyellow;" *ngIf="pexercise.isReady"> LISTO!</b></h4> </button>
                     <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12">no puedo</button>
                     <button *ngIf="pexercise.isReady==false" class="red-btn col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12" (click)="pexercise.isReady=true;setIsReady(pexercise);hideToggle(i)">listo!</button>
                 </div>
@@ -22,16 +22,16 @@
                 <div id="toggle{{i}}" class="mt-md" style="display: none;">
                     
                     <section class="row justify-content-center">
-                        <h4 class="text-title">{{this.getExerciseById(pexercise.exerciseId)?.name}}</h4>
-                        <figure class="col-12 home-img container" style="background-image: url('{{this.getExerciseById(pexercise.exerciseId)?.imgUrl}}');"></figure>   
+                        <h4 class="text-title">{{getExerciseById(pexercise.exerciseId)?.name}}</h4>
+                        <figure class="col-12 home-img container" style="background-image: url('{{getExerciseById(pexercise.exerciseId)?.imgUrl}}');"></figure>   
                     </section>
                     <section class="row justify-content-center mt-md">
-                        <h2 style="text-align: center;">Consejos sobre este ejercicio</h2>
+                        <h2 style="text-align: center;">Consejos sobre {{getExerciseById(pexercise.exerciseId)?.name}}</h2>
                         <iframe id="iframe{{i}}" class="e2e-iframe-trusted-src" height="512px"    
-                        [src]="getUnsafeTipUrlByExerciseId(pexercise.exerciseId) | safe">
+                                [src]="getUnsafeTipUrlByExerciseId(pexercise.exerciseId) | safe">
                         </iframe>
-                        <h1>{{this.videoUrl}}</h1>
-                        <button (click)="hideToggle(i)" class="btn red-btn" >↑↑↑ OCULTAR ↑↑↑</button>
+                    
+                        <button (click)="hideToggle(i)" class="btn red-btn mt-md mb-md" >↑↑↑ OCULTAR ↑↑↑</button>
                     </section>
                 </div>
                 <hr class="mt-sm mb-sm">

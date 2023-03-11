@@ -14,7 +14,7 @@ const APP_ROUTES: Routes=[
     {path:'students',component:StudentsComponent},
     {path:'routine/:id',component:RoutineComponent},
     {path:'pays/:id',component:PaysComponent},
-    {path:'allpays',component:PlansComponent},
+    {path:'allpays',component:AllpaysComponent},
     {path:'**',pathMatch:'full',redirectTo:'home'}//si no encuentra la ruta ejecuta esta, ruta por defecto
 ];
 export const APP_ROUTING=RouterModule.forRoot(APP_ROUTES);
