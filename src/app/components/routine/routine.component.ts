@@ -75,7 +75,7 @@ export class RoutineComponent implements OnInit {
     
   this.crudService.getRowByCol(this.paramStudentId,'__name__','students').then(resp => { 
     this.studentByStudentId=resp[0]; 
-});
+  });
   
     
   }
@@ -84,23 +84,20 @@ export class RoutineComponent implements OnInit {
   hideToggle(i:number){
     const element = document.getElementById('toggle'+i);
     //const element2 = document.getElementById('iframe'+i);
-    if(element!=null){
+    if(element!=null)
         element.style.display='none';
-      }
+      
   }
 
   showHideToggle(i:number){
     const element = document.getElementById('toggle'+i);
     //const element2 = document.getElementById('iframe'+i);
     if(element!=null){
-      if(element.style.display=='none'){
-        element.style.display='block';
-        
-      }
-        
-      else{
+      if(element.style.display=='none')
+        element.style.display='block'; 
+      else
         element.style.display='none';
-      }
+      
     }
   }
 

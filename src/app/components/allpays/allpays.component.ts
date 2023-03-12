@@ -9,17 +9,70 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class AllpaysComponent implements OnInit {
 
-  studentByStudentId!  :Student;
 
+  studentList!         :Student[];
+  isLoading       :boolean=false;
   allpaysList!        :Pay[];
 
 
-  constructor(private crudService:CrudService) { }
+  constructor(private crudService:CrudService) { 
+  
+  }
 
   ngOnInit(): void {
-
+    
     this.allpaysList=this.crudService.getRowList('pays');
+    //this.allpaysList=this.allpaysList.filter(i=>i.isPaid==false);
+    this.studentList=this.crudService.getRowList1('students');
+  }
 
+  getPayState(pay:Pay){
+    let actualPlanId=pay.planId;
+    const dayDiff=Math.floor((pay.payDate-Date.now())/86400000)+1
+    if(pay.isPaid) 
+      return 'PAGADO'
+    if(dayDiff>0)
+      return 'AL DIA ( FALTAN '+dayDiff+' DIAS )';
+    if (dayDiff==0)
+      return 'DIA DE PAGO';
+    if(dayDiff<0)
+         return'CUOTA ATRASADA POR '+ dayDiff*(-1) + ' DIAS';
+    return 'error desconocido';
+  }
+
+  getStudentById(studentId:string){
+    return this.studentList.find(i=>i.id==studentId);
+  }
+
+  cancelPay(payToCancel:Pay){
+    let nextPayDate = new Date(payToCancel.payDate);
+    nextPayDate.setMonth(nextPayDate.getMonth()+1);
+  this.crudService.postRow(
+        new Pay(
+          payToCancel.studentId,
+          payToCancel.planId,
+          nextPayDate.getTime(),
+          false
+        ),
+        'pays'
+      ).then(resp=>{this.isLoading=false;
+                  location.reload();
+                  })
+      .catch(e=>console.log('error al guardar',e));
+  
+      this.crudService.putRow(
+        new Pay(
+          payToCancel.studentId,
+          payToCancel.planId,
+          payToCancel.payDate,
+          true,
+          payToCancel.id
+        ),
+        'pays'
+      ).then(resp=>{this.isLoading=false;
+                  location.reload();
+                  })
+      .catch(e=>console.log('error al guardar',e));
   }
 
 }

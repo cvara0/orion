@@ -6,8 +6,8 @@ import db from '../../firebase/firebase.config';
 })
 export class CrudService {
 
-  rowList: any = [];
-  row:any;
+  rowList: any= [];
+  rowList1: any= [];
   constructor() { }
 
   postRow(rowToAdd:any,tableName:string){
@@ -42,6 +42,16 @@ export class CrudService {
     return this.rowList;
 }
 
+getRowList1(tableName:string){
+  const tableRef = collection(db, tableName);
+  this.rowList1=[];
+  onSnapshot(tableRef, (snapshot) => { 
+    snapshot.docs.forEach((doc) => {
+      this.rowList1.push({ ...doc.data(), id: doc.id });
+    });
+  });
+  return this.rowList1;
+}
 
   async getRowByCol(col:string,colName:string,tableName:string){
     const queryRef = query(collection(db, tableName), where(colName, '==', col));

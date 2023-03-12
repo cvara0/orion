@@ -150,6 +150,7 @@ getAge(timeBirdth:number):number{
     
     this.crudService.postRow(
       new Student(
+        this.addStudentForm.get('stuToAddDni')?.value,
         this.addStudentForm.get('stuToAddName')?.value,
         this.addStudentForm.get('stuToAddSurname')?.value,
         this.addStudentForm.get('stuToAddWeight')?.value,
@@ -246,6 +247,7 @@ getAge(timeBirdth:number):number{
     
     this.crudService.putRow(
       new Student(
+        this.editStudentForm.get('stuToEditDni')?.value,
         this.editStudentForm.get('stuToEditName')?.value,
         this.editStudentForm.get('stuToEditSurname')?.value,
         this.editStudentForm.get('stuToEditWeight')?.value,

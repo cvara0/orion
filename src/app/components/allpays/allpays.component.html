@@ -5,6 +5,7 @@
        <table class="table table-dark">
            <thead>
              <tr>
+               <th scope="col">DNI</th>
                <th scope="col">ALUMNO</th>
                <th scope="col">FECHA DE PAGO</th>
                <th scope="col">MONTO</th>
@@ -14,14 +15,14 @@
            </thead>
            <tbody>
              <tr *ngFor="let pay of this.allpaysList;let i = index">
-               <!--<th scope="row" [textContent]=exercise.id></th>-->
-               <td ></td>
-               <td ></td>
-               <td ></td>
-               <td> 
-                   
-                   <button (click)="null" class="btn red-btn ml-sm">SALDAR DEUDA</button>
-               </td>
+               <!--<th scope="row" [textContent]=exercise.id></th>--> 
+                  <td *ngIf="pay.isPaid==false">{{getStudentById(pay.studentId)?.dni}}</td>
+                  <td *ngIf="pay.isPaid==false">{{getStudentById(pay.studentId)?.name}}</td>
+                  <td *ngIf="pay.isPaid==false">{{this.getPayState(pay)}}</td>
+                  <td *ngIf="pay.isPaid==false">{{pay.planId}}</td>
+                  <td *ngIf="pay.isPaid==false">
+                    <button *ngIf="!pay.isPaid" (click)="this.cancelPay(pay)" class="btn red-btn ml-sm">SALDAR DEUDA</button>
+                  </td>
               
              </tr>
            

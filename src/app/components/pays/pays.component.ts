@@ -74,7 +74,7 @@ getPlanById(planId:string){
 getPayState(pay:Pay){
   let actualPlanId=pay.planId;
   const dayDiff=Math.floor((pay.payDate-Date.now())/86400000)+1
-  if(pay.isPaid) //seguir con estado actualizado para el caso de que al alcualizar no figure pagado sino actualziado
+  if(pay.isPaid) 
     return 'PAGADO'
   if(dayDiff>0)
     return 'AL DIA ( FALTAN '+dayDiff+' DIAS )';
