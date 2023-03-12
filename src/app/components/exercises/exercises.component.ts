@@ -103,23 +103,24 @@ export class ExercisesComponent implements OnInit {
   }
 
   saveAddExercise(){
-
+    let exercise:Exercise=new Exercise(
+      this.addExerciseForm.get('exeToAddMuscleGroup')?.value,
+      this.addExerciseForm.get('exeToAddName')?.value,
+      this.addExerciseForm.get('exeToAddDifficulty')?.value,
+      this.addExerciseForm.get('exeToAddTipsUrl')?.value,
+      this.addExerciseForm.get('exeToAddImgUrl')?.value,
+      this.addExerciseForm.get('exeToAddGender')?.value,
+      this.addExerciseForm.get('exeToAddElement')?.value,
+      this.addExerciseForm.get('exeToAddCommonErrors')?.value
+    );
     this.isLoading=true;
     this.crudService.postRow(
-      new Exercise(
-        this.addExerciseForm.get('exeToAddMuscleGroup')?.value,
-        this.addExerciseForm.get('exeToAddName')?.value,
-        this.addExerciseForm.get('exeToAddDifficulty')?.value,
-        this.addExerciseForm.get('exeToAddTipsUrl')?.value,
-        this.addExerciseForm.get('exeToAddImgUrl')?.value,
-        this.addExerciseForm.get('exeToAddGender')?.value,
-        this.addExerciseForm.get('exeToAddElement')?.value,
-        this.addExerciseForm.get('exeToAddCommonErrors')?.value
-      ),
+      exercise,
     'exercises'
   ).then(resp=>
-      {this.isLoading=false;
-      location.reload();
+      {
+        this.exerciseList.push(exercise);
+        this.isLoading=false;
       })
    .catch(e=>{console.log('error al guardar',e);
               this.isLoading=false;});
@@ -168,25 +169,28 @@ export class ExercisesComponent implements OnInit {
 
  
 saveEditExercise(){
-
+ let exercise:Exercise=new Exercise(
+  this.editExerciseForm.get('exeToEditMuscleGroup')?.value,
+  this.editExerciseForm.get('exeToEditName')?.value,
+  this.editExerciseForm.get('exeToEditDifficulty')?.value,
+  this.editExerciseForm.get('exeToEditTipsUrl')?.value,
+  this.editExerciseForm.get('exeToEditImgUrl')?.value,
+  this.editExerciseForm.get('exeToEditGender')?.value,
+  this.editExerciseForm.get('exeToEditElement')?.value,
+  this.editExerciseForm.get('exeToEditCommonErrors')?.value,
+  this.exerciseToEdit.id
+)
   this.isLoading=true;
   
   this.crudService.putRow(
-    new Exercise(
-      this.editExerciseForm.get('exeToEditMuscleGroup')?.value,
-      this.editExerciseForm.get('exeToEditName')?.value,
-      this.editExerciseForm.get('exeToEditDifficulty')?.value,
-      this.editExerciseForm.get('exeToEditTipsUrl')?.value,
-      this.editExerciseForm.get('exeToEditImgUrl')?.value,
-      this.editExerciseForm.get('exeToEditGender')?.value,
-      this.editExerciseForm.get('exeToEditElement')?.value,
-      this.editExerciseForm.get('exeToEditCommonErrors')?.value,
-      this.exerciseToEdit.id
-    ),
+    exercise,
     'exercises'
   ).then(resp=>
-      {this.isLoading=false;
-      location.reload();
+      {
+        const index = this.exerciseList.indexOf(this.exerciseToEdit);
+        this.exerciseList.splice(index, 1, exercise);
+        this.isLoading=false;
+      
       })
    .catch(e=>{console.log('error al guardar',e);
               this.isLoading=false;});
@@ -199,8 +203,9 @@ deleteExercise(exerciseToDelete:Exercise,i:number){
   this.isLoading=true;
     if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
       this.crudService.deleteRow(exerciseToDelete,'exercises').then(resp=>
-        {this.isLoading=false;
-        location.reload();
+        {
+          this.exerciseList=this.exerciseList.filter(i=>i!==exerciseToDelete);
+          this.isLoading=false;
         })
      .catch(e=>console.log('error al eliminar',e)); 
   }else

@@ -80,6 +80,30 @@ pexToEditType
                 {{load}}
             </option>
         </select>
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>DOSAJE</option>
+            <option *ngFor="let dosage of this.dosageList">
+                {{dosage}}
+            </option>
+        </select>
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>TIEMPO (OPCIONAL VER)</option>
+            <option *ngFor="let time of this.timeList">
+                {{time}}
+            </option>
+        </select>
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>TIEMPO DE DESCANSO</option>
+            <option *ngFor="let restTime of this.restTimeList">
+                {{restTime}}
+            </option>
+        </select>
+        <select class="red-btn h-lg" formControlName="pexToAddLoad">
+            <option value="" selected disabled hidden>TIEMPO DE DESCANSO</option>
+            <option *ngFor="let type of this.typeList">
+                {{type}}
+            </option>
+        </select>
        <button (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 

@@ -36,6 +36,7 @@ export class RoutineComponent implements OnInit {
   //pexerciseToView!     :Pexercise;
 
   dosageList           :string[];
+  timeList             :number[];
   loadList             :number[];
   restTimeList         :number[];
   typeList             :string[];
@@ -57,6 +58,7 @@ export class RoutineComponent implements OnInit {
     ) { 
 
       this.dosageList=['dosaje1','dosaje2','dosaje3','etc'];
+      this.timeList=[5,10,15];
       this.loadList=[5,10,15];    
       this.restTimeList=[1,2,5];  
       this.typeList=['tipo1','tipo2','tipo3','etc'];
