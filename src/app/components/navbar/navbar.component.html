@@ -3,10 +3,10 @@
        <!--<button class="btn red-btn ml-sm">Editar mi perfil</button>
         <button [routerLink]="['routine']" class="btn red-btn ml-sm">MI RUTINA</button>--> 
   
-        <button [routerLink]="['students']"class="btn red-btn ml-sm">ALUMNOS</button>
-        <button [routerLink]="['exercises']" class="btn red-btn ml-sm">EJERCICIOS</button>
-        <button [routerLink]="['plans']" class="btn red-btn ml-sm">PLANES</button>
-        <button [routerLink]="['allpays']" class="btn red-btn ml-sm">TODAS LAS CUOTAS</button>
+        <button [routerLink]="['students']"class="btn red-btn ml-sm mt-sm">ALUMNOS</button>
+        <button [routerLink]="['exercises']" class="btn red-btn ml-sm mt-sm">EJERCICIOS</button>
+        <button [routerLink]="['plans']" class="btn red-btn ml-sm mt-sm">PLANES</button>
+        <button [routerLink]="['allpays']" class="btn red-btn ml-sm mt-sm">TODAS LAS CUOTAS</button>
         
         <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
             <button (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">

@@ -33,7 +33,7 @@ export class ExercisesComponent implements OnInit {
   constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public crudService:CrudService) {
 
     this.exerciseList=[];
-    
+
     this.muscleGroupList=[
       "antebrazos",
       "espalda",
@@ -58,9 +58,16 @@ export class ExercisesComponent implements OnInit {
     this.createAddExerciseForm();
     
   }
+///////////////////////////////////////////////////////
+search(searchValue:string){
+  this.exerciseList=this.exerciseList.filter(i=>i.name.includes(searchValue));
+  console.log(searchValue);
+}
+reload(){
+  location.reload();
+}
 
-
-   ////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
   createAddExerciseForm(){
   
     this.addExerciseForm=this.formBuilder.group({
