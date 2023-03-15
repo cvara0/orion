@@ -27,12 +27,12 @@ export class ExercisesComponent implements OnInit {
   difficultyList      :string[];
   genderList          :string[];
 
+  page                :number;
+  searchValue         :string;
 
   isLoading:boolean=false;
 
   constructor(private modalService: NgbModal,private formBuilder:FormBuilder,public crudService:CrudService) {
-
-    this.exerciseList=[];
 
     this.muscleGroupList=[
       "antebrazos",
@@ -52,6 +52,9 @@ export class ExercisesComponent implements OnInit {
 
     this.exerciseList=this.crudService.getRowList('exercises');
     
+    this.page=0;
+    this.searchValue='';
+
    }
 
   ngOnInit(): void {
@@ -60,11 +63,15 @@ export class ExercisesComponent implements OnInit {
   }
 ///////////////////////////////////////////////////////
 search(searchValue:string){
-  this.exerciseList=this.exerciseList.filter(i=>i.name.includes(searchValue));
-  console.log(searchValue);
+  this.page=0;
+  this.searchValue=searchValue;
 }
-reload(){
-  location.reload();
+nextPage(){
+  this.page+=10;
+}
+previousPage(){
+  if(this.page>0)
+    this.page-=10;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -127,6 +134,7 @@ reload(){
   ).then(resp=>
       {
         this.exerciseList.push(exercise);
+        window.alert("EJERCICIO AGREGADO");
         this.isLoading=false;
       })
    .catch(e=>{console.log('error al guardar',e);
@@ -206,7 +214,7 @@ saveEditExercise(){
 
 ///////////////////////////////////////////////////////////////////
 
-deleteExercise(exerciseToDelete:Exercise,i:number){
+deleteExercise(exerciseToDelete:Exercise){
   this.isLoading=true;
     if (window.confirm("Eliminar ejercicio "+exerciseToDelete.name+" ?")){
       this.crudService.deleteRow(exerciseToDelete,'exercises').then(resp=>

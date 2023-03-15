@@ -15,6 +15,9 @@ import { PlansComponent } from './components/plans/plans.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AllpaysComponent } from './components/allpays/allpays.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { PaginatePipe } from './pipes/paginate.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { SafePipe } from './pipes/safe.pipe';
     PaysComponent,
     PlansComponent,
     AllpaysComponent,
-    SafePipe
+    SafePipe,
+    PaginatePipe
   ],
   imports: [
     FormsModule,
@@ -43,7 +47,9 @@ import { SafePipe } from './pipes/safe.pipe';
       authorizationParams: {
         redirect_uri: window.location.origin
       }
-    })
+    }),
+    NoopAnimationsModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
