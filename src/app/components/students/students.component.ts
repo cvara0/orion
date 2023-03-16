@@ -152,7 +152,7 @@ getAge(timeBirdth:number):number{
       new Student(
         this.addStudentForm.get('stuToAddDni')?.value,
         this.addStudentForm.get('stuToAddName')?.value,
-        this.addStudentForm.get('stuToAddSurname')?.value,
+        //this.addStudentForm.get('stuToAddSurname')?.value,
         this.addStudentForm.get('stuToAddWeight')?.value,
         stuToAddAge.getTime(),
         this.addStudentForm.get('stuToAddGender')?.value,
@@ -178,7 +178,7 @@ getAge(timeBirdth:number):number{
     this.editStudentForm=this.formBuilder.group({
 
       stuToEditName             : [this.studentToEdit.name,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
-      stuToEditSurname          : [this.studentToEdit.surname,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
+      //stuToEditSurname          : [this.studentToEdit.surname,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
       stuToEditWeight           : [this.studentToEdit.weight,[Validators.required]],
       stuToEditAge              : [this.studentToEdit.age,[Validators.required]],
       stuToEditGender           : [this.studentToEdit.gender,[Validators.required]],
@@ -249,7 +249,7 @@ getAge(timeBirdth:number):number{
       new Student(
         this.editStudentForm.get('stuToEditDni')?.value,
         this.editStudentForm.get('stuToEditName')?.value,
-        this.editStudentForm.get('stuToEditSurname')?.value,
+        //this.editStudentForm.get('stuToEditSurname')?.value,
         this.editStudentForm.get('stuToEditWeight')?.value,
         this.editStudentForm.get('stuToEditAge')?.value,
         this.editStudentForm.get('stuToEditGender')?.value,
@@ -277,7 +277,7 @@ getAge(timeBirdth:number):number{
 
 deleteStudent(studentToDelete:Student){
   this.isLoading=true;
-    if (window.confirm("Eliminar alumno "+studentToDelete.name+" "+studentToDelete.surname+" ?")){
+    if (window.confirm("Eliminar alumno "+studentToDelete.name+" ?")){
       let pexToDeleteList: Pexercise[]=[];
     
       this.crudService.getRowByCol(studentToDelete.id!,'studentId','pexercises').then(resp => { 

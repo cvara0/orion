@@ -66,13 +66,7 @@ search(searchValue:string){
   this.page=0;
   this.searchValue=searchValue;
 }
-nextPage(){
-  this.page+=10;
-}
-previousPage(){
-  if(this.page>0)
-    this.page-=10;
-}
+
 
 ////////////////////////////////////////////////////////////////
   createAddExerciseForm(){

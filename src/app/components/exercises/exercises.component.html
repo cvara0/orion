@@ -27,7 +27,7 @@
         </thead>
         <tbody>
             
-           <tr *ngFor="let exercise of this.exerciseList | slice: (page-1) * 10 : page * 10 | paginate:this.searchValue">
+           <tr *ngFor="let exercise of this.exerciseList | slice: (page-1) * 10 : page * 10 | search:this.searchValue">
             <!--<th scope="row" [textContent]=exercise.id></th>-->
             
             <td >{{exercise.name}}</td>

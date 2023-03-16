@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import db from '../../firebase/firebase.config';
+import { Pay } from '../models/pay.models';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +42,7 @@ export class CrudService {
     });
     return this.rowList;
 }
+
 
 getRowList1(tableName:string){
   const tableRef = collection(db, tableName);

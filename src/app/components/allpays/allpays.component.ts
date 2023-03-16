@@ -10,21 +10,32 @@ import { CrudService } from 'src/app/services/crud.service';
 export class AllpaysComponent implements OnInit {
 
 
-  studentList!         :Student[];
-  isLoading       :boolean=false;
+  studentList!        :Student[];
+  isLoading           :boolean=false;
   allpaysList!        :Pay[];
 
+  searchValue         :string;
+  page                :number;
 
   constructor(private crudService:CrudService) { 
-  
+    this.page=0;
+    this.searchValue='';
   }
 
   ngOnInit(): void {
     
     this.allpaysList=this.crudService.getRowList('pays');
-    //this.allpaysList=this.allpaysList.filter(i=>i.isPaid==false);
     this.studentList=this.crudService.getRowList1('students');
+    //this.allpaysList=this.allpaysList.filter(i=>i.isPaid===false);
+    
   }
+///////////////////////////////////////////
+
+search(searchValue:string){
+  this.page=0;
+  let sv:string=this.studentList.find(i=>i.name.includes(searchValue))?.id!;
+  this.searchValue=sv;
+}
 
   getPayState(pay:Pay){
     let actualPlanId=pay.planId;
@@ -32,11 +43,11 @@ export class AllpaysComponent implements OnInit {
     if(pay.isPaid) 
       return 'PAGADO'
     if(dayDiff>0)
-      return 'AL DIA ( FALTAN '+dayDiff+' DIAS )';
+      return 'FALTAN '+dayDiff+' DIAS';
     if (dayDiff==0)
       return 'DIA DE PAGO';
     if(dayDiff<0)
-         return'CUOTA ATRASADA POR '+ dayDiff*(-1) + ' DIAS';
+         return'ATRASADA POR '+ dayDiff*(-1) + ' DIAS';
     return 'error desconocido';
   }
 

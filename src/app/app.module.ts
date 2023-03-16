@@ -17,7 +17,7 @@ import { AllpaysComponent } from './components/allpays/allpays.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { PaginatePipe } from './pipes/paginate.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { PaginatePipe } from './pipes/paginate.pipe';
     PlansComponent,
     AllpaysComponent,
     SafePipe,
-    PaginatePipe
+    SearchPipe
   ],
   imports: [
     FormsModule,
