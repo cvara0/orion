@@ -47,32 +47,35 @@
 </section>
 
  <ng-template #addExerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO</h3>
+    
       <form class="row" [formGroup]="addExerciseForm" (ngSubmit)="saveAddExercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+        <h3 class="text-title" style="background-color: black;">Agregando ejercicio</h3>
         <select class="red-btn h-lg" formControlName="exeToAddMuscleGroup">
-            <option value="" selected disabled hidden>GRUPO MUSCULAR</option>
+            <option #grupoMuscular value="" selected disabled hidden>Grupo muscular</option>
             <option *ngFor="let muscleGroup of this.muscleGroupList">
                 {{muscleGroup}}
             </option>
         </select>
-        <input formControlName="exeToAddName" class="red-btn h-lg" type="text" placeholder=" NOMBRE DE EJERCICIO">
-        <input formControlName="exeToAddTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
-        <input formControlName="exeToAddImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
+        
+        <h6 class="text-danger" style="background-color: black;"><br> Campo requerido </h6>
+        <input formControlName="exeToAddName" class="red-btn h-lg" type="text" placeholder=" Nombre del ejercicio">
+        <input formControlName="exeToAddTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL de video">
+        <input formControlName="exeToAddImgUrl" class="red-btn h-lg" type="text" placeholder=" URL de imagen gif">
         <select class="red-btn h-lg" formControlName="exeToAddDifficulty">
-            <option value="" selected disabled hidden>DIFICULTAD</option>
+            <option value="" selected disabled hidden>Dificultad</option>
             <option *ngFor="let difficulty of this.difficultyList">
                 {{difficulty}}
             </option>
         </select>
         <select class="red-btn h-lg"  formControlName="exeToAddGender">
-            <option value="" selected disabled hidden>GENERO</option>
+            <option value="" selected disabled hidden>Género</option>
             <option *ngFor="let gender of this.genderList">
                 {{gender}}
             </option>
         </select>
-        <select class="red-btn h-lg"  formControlName="exeToAddElement">
-            <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
+        <select class="red-btn h-lg" formControlName="exeToAddElement">
+            <option value="" selected disabled hidden>Elemento principal</option>
             <option *ngFor="let element of this.elementList">
                 {{element}}
             </option>
@@ -89,11 +92,11 @@
 </ng-template> 
 
 <ng-template #editExerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO {{this.exerciseToEdit.name}}</h3>
+    <h3 class="text-title" style="background-color: black;">Editando ejercicio: {{this.exerciseToEdit.name}}</h3>
       <form class="row" [formGroup]="editExerciseForm" (ngSubmit)="saveEditExercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
         <select class="red-btn h-lg" formControlName="exeToEditMuscleGroup">
-            <option selected disabled hidden>GRUPO MUSCULAR</option>
+            <option selected disabled hidden>Grupo muscular</option>
             <option *ngFor="let muscleGroup of this.muscleGroupList">
                 {{muscleGroup}}
             </option>
@@ -102,25 +105,25 @@
         <input formControlName="exeToEditTipsUrl" class="red-btn h-lg" type="text" placeholder=" URL DE CONSEJOS">
         <input formControlName="exeToEditImgUrl" class="red-btn h-lg" type="text" placeholder=" URL DE IMAGEN GIF">
         <select class="red-btn h-lg" formControlName="exeDifficulty">
-            <option value="" selected disabled hidden>DIFICULTAD</option>
+            <option value="" selected disabled hidden>Dificultad</option>
             <option *ngFor="let difficulty of this.difficultyList">
                 {{difficulty}}
             </option>
         </select>
         <select class="red-btn h-lg" formControlName="exeToEditGender">
-            <option value="" selected disabled hidden>GENERO</option>
+            <option value="" selected disabled hidden>Género</option>
             <option *ngFor="let gender of this.genderList">
                 {{gender}}
             </option>
         </select>
 
         <select class="red-btn h-lg" formControlName="exeToEditElement">
-            <option value="" selected disabled hidden>ELEMENTO PRINCIPAL</option>
+            <option value="" selected disabled hidden>Elemento principal</option>
             <option *ngFor="let element of this.elementList">
                 {{element}}
             </option>
         </select>
-
+        <h3 class="text-title" style="background-color: black;">------</h3>
         <button *ngIf="(!validExeToEditName && !validExeToEditTipsUrl && !validExeToEditImgUrl)" (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 
@@ -130,22 +133,24 @@
     <div class="row" style="background-color:black">
       <button type="button" class="red-btn mb-md" (click)="modal.dismiss('Cross click')">X</button>
       <h3 class="text-title" style="background-color: black;">{{this.exerciseToView.name}}</h3>
-      <u>Nombre</u>
-      <h5> {{this.exerciseToView.name}}</h5>
-      <u>Grupo muscular</u>
-      <h5> {{this.exerciseToView.muscleGroup}}</h5>
-      <u>Dificultad</u>
-      <h5> {{this.exerciseToView.difficulty}}</h5>
-      <u>Video tips</u>
-      <h5> {{this.exerciseToView.tipsUrl}}</h5>
-      <u>Imagen gif</u>
-      <h5> {{this.exerciseToView.imgUrl}}</h5>
-      <u>Genero</u>
-      <h5> {{this.exerciseToView.gender}}</h5>
-      <u>Elementos</u>
-      <h5> {{this.exerciseToView.element}}</h5>
-      <u>Errores comunes</u>
-      <h5> {{this.exerciseToView.commonErrors}}</h5>
+      
+      <h5><u>Nombre:</u> {{this.exerciseToView.name}}</h5>
+      
+      <h5><u>Grupo muscular:</u> {{this.exerciseToView.muscleGroup}}</h5>
+      
+      <h5><u>Dificultad:</u> {{this.exerciseToView.difficulty}}</h5>
+      
+      <h5><u>Video tips:</u></h5>
+        <iframe class="e2e-iframe-trusted-src" height="512px"    
+            [src]="getUnsafeTipUrlByYoutubeId(this.exerciseToView.tipsUrl) | safe">
+        </iframe>
+      <h5><u>Imagen gif:</u></h5>
+      <figure class="col-12 home-img container" style="background-image: url('{{this.exerciseToView.imgUrl}}');"></figure>
+      <h5><u>Genero:</u> {{this.exerciseToView.gender}}</h5>
+      
+      <h5><u>Elementos:</u> {{this.exerciseToView.element}}</h5>
+      
+      <h5><u>Errores comunes:</u> {{this.exerciseToView.commonErrors}}</h5>
     </div>
        
   </ng-template> 

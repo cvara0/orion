@@ -18,9 +18,9 @@
        <table class="table table-dark">
            <thead>
              <tr>
-               <th scope="col">DNI</th>
-               <th scope="col">ALUMNO</th>
+               <th scope="col">NOMBRE Y APELLIDO</th>
                <th scope="col">FECHA DE PAGO</th>
+               <th scope="col">ESTADO</th>
                <th scope="col">MONTO</th>
                <th scope="col">ACCIONES</th>
                
@@ -29,8 +29,8 @@
            <tbody>
              <tr *ngFor="let pay of this.allpaysList | slice: (page-1) * 10 : page * 10 | search:this.searchValue">
                <!--<th scope="row" [textContent]=exercise.id></th>--> 
-                  <td *ngIf="pay.isPaid===false">{{getStudentById(pay.studentId)?.dni}}</td>
                   <td *ngIf="pay.isPaid===false">{{getStudentById(pay.studentId)?.name}}</td>
+                  <td *ngIf="pay.isPaid===false">{{pay.payDate | date: 'dd/MM/yyyy'}}</td>
                   <td *ngIf="pay.isPaid===false">{{this.getPayState(pay)}}</td>
                   <td *ngIf="pay.isPaid===false">{{pay.planId}}</td>
                   <td *ngIf="pay.isPaid===false">

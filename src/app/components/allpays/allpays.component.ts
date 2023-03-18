@@ -56,34 +56,39 @@ search(searchValue:string){
   }
 
   cancelPay(payToCancel:Pay){
-    let nextPayDate = new Date(payToCancel.payDate);
-    nextPayDate.setMonth(nextPayDate.getMonth()+1);
-  this.crudService.postRow(
-        new Pay(
-          payToCancel.studentId,
-          payToCancel.planId,
-          nextPayDate.getTime(),
-          false
-        ),
-        'pays'
-      ).then(resp=>{this.isLoading=false;
-                  location.reload();
-                  })
-      .catch(e=>console.log('error al guardar',e));
-  
-      this.crudService.putRow(
-        new Pay(
-          payToCancel.studentId,
-          payToCancel.planId,
-          payToCancel.payDate,
-          true,
-          payToCancel.id
-        ),
-        'pays'
-      ).then(resp=>{this.isLoading=false;
-                  location.reload();
-                  })
-      .catch(e=>console.log('error al guardar',e));
-  }
+    if (window.confirm("Saldar deuda de "+this.getStudentById(payToCancel.studentId)?.name+" ?")){
+      let nextPayDate = new Date(payToCancel.payDate);
+      nextPayDate.setMonth(nextPayDate.getMonth()+1);
+      let nextPay:Pay=new Pay(
+                              payToCancel.studentId,
+                              payToCancel.planId,
+                              nextPayDate.getTime(),
+                              false
+                            );
+      this.crudService.postRow(
+            nextPay,
+            'pays'
+          ).then(resp=>{
+                      this.allpaysList.push(nextPay);
+                      this.isLoading=false;
+                      })
+          .catch(e=>console.log('error al guardar',e));
+      
+          this.crudService.putRow(
+            new Pay(
+              payToCancel.studentId,
+              payToCancel.planId,
+              payToCancel.payDate,
+              true,
+              payToCancel.id
+            ),
+            'pays'
+          ).then(resp=>{
+                      this.allpaysList=this.allpaysList.filter(i=>i!==payToCancel);
+                      this.isLoading=false;
+                      })
+          .catch(e=>console.log('error al guardar',e));
+      }
+    }
 
 }

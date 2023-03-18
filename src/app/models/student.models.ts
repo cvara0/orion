@@ -3,9 +3,7 @@ import { Pexercise } from "./pexercise.models";
 export class Student{
 
     constructor(
-        public dni                : number,
         public name               : string,
-        //public surname            : string,
         public weight             : number,
         public age                : number,
         public gender             : string,

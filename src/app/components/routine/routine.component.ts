@@ -48,6 +48,8 @@ export class RoutineComponent implements OnInit {
   dangerousVideoUrl:string='';
   videoUrl:SafeResourceUrl='';
 
+  page                :number;
+  searchValue         :string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -64,6 +66,9 @@ export class RoutineComponent implements OnInit {
       this.typeList=['tipo1','tipo2','tipo3','etc'];
       this.paramStudentId=this.activatedRoute.snapshot.paramMap.get('id')!;
       this.showOrHide="";
+
+      this.page=0;
+      this.searchValue='';
     }
 
   ngOnInit(): void {
@@ -111,6 +116,11 @@ export class RoutineComponent implements OnInit {
    
   return 'https://www.youtube-nocookie.com/embed/' + this.exerciseList.find(i=>i.id==exerciseId)!.tipsUrl+'?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0';
    
+  }
+
+  search(searchValue:string){
+    this.page=0;
+    this.searchValue=searchValue;
   }
 
   /*

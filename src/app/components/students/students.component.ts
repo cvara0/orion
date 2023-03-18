@@ -71,9 +71,8 @@ getAge(timeBirdth:number):number{
   createAddStudentForm(){
   
     this.addStudentForm=this.formBuilder.group({
-
+      stuToAddDni              : ['',[Validators.required]],
       stuToAddName             : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
-      stuToAddSurname          : ['',[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
       stuToAddWeight           : ['',[Validators.required]],
       stuToAddAge              : ['',[Validators.required]],
       stuToAddGender           : ['',[Validators.required]],
@@ -88,12 +87,10 @@ getAge(timeBirdth:number):number{
       
     });
   }
+
+
   get validStuToAddName(){
     return this.addStudentForm.get('stuToAddName')?.invalid;
-  }
-
-  get validStuToAddSurname(){
-    return this.addStudentForm.get('stuToAddSurname')?.invalid;
   }
 
   get validStuToAddWeight(){
@@ -150,9 +147,7 @@ getAge(timeBirdth:number):number{
     
     this.crudService.postRow(
       new Student(
-        this.addStudentForm.get('stuToAddDni')?.value,
         this.addStudentForm.get('stuToAddName')?.value,
-        //this.addStudentForm.get('stuToAddSurname')?.value,
         this.addStudentForm.get('stuToAddWeight')?.value,
         stuToAddAge.getTime(),
         this.addStudentForm.get('stuToAddGender')?.value,
@@ -176,9 +171,7 @@ getAge(timeBirdth:number):number{
  ////////////////////////////////////////////////////////////////
   createEditStudentForm(){
     this.editStudentForm=this.formBuilder.group({
-
       stuToEditName             : [this.studentToEdit.name,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
-      //stuToEditSurname          : [this.studentToEdit.surname,[Validators.required,Validators.minLength(1),Validators.maxLength(140)]],
       stuToEditWeight           : [this.studentToEdit.weight,[Validators.required]],
       stuToEditAge              : [this.studentToEdit.age,[Validators.required]],
       stuToEditGender           : [this.studentToEdit.gender,[Validators.required]],
@@ -192,13 +185,11 @@ getAge(timeBirdth:number):number{
       stuToEditComent           : [this.studentToEdit.coment,[Validators.required]]
     });
   }
+
   get validStuToEditName(){
     return this.editStudentForm.get('stuToEditName')?.invalid;
   }
 
-  get validStuToEditSurname(){
-    return this.editStudentForm.get('stuToEditSurname')?.invalid;
-  }
 
   get validStuToEditWeight(){
     return this.editStudentForm.get('stuToEditWeight')?.invalid;
@@ -247,9 +238,7 @@ getAge(timeBirdth:number):number{
     
     this.crudService.putRow(
       new Student(
-        this.editStudentForm.get('stuToEditDni')?.value,
         this.editStudentForm.get('stuToEditName')?.value,
-        //this.editStudentForm.get('stuToEditSurname')?.value,
         this.editStudentForm.get('stuToEditWeight')?.value,
         this.editStudentForm.get('stuToEditAge')?.value,
         this.editStudentForm.get('stuToEditGender')?.value,

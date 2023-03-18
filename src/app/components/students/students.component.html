@@ -4,8 +4,7 @@
      <table class="table table-dark">
          <thead>
            <tr>
-             <th scope="col">NOMBRE</th>
-             <th scope="col">APELLIDO</th>
+             <th scope="col">NOMBRE Y APELLIDO</th>
              <th scope="col">EDAD</th>
              <th scope="col">ACCIONES</th>  
            </tr>
@@ -15,7 +14,6 @@
              <!--<th scope="row" [textContent]=exercise.id></th>-->
             
              <td>{{student.name}}</td>
-             <td>{{student.surname}}</td>
              <td>{{getAge(student.age)}}</td>
   
              <td> 
@@ -91,9 +89,7 @@
             </div>
           </div>
           </ng-template> 
-
            </tr>
-         
          </tbody>
        </table>
      </div>
@@ -104,8 +100,7 @@
        <form class="row" [formGroup]="addStudentForm" (ngSubmit)="saveAddStudent()">
          <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
          
-         <input formControlName="stuToAddName" class="red-btn h-lg" type="text" placeholder=" nombre/s">
-         <input formControlName="stuToAddSurname" class="red-btn h-lg" type="text" placeholder=" apellido/s">
+         <input formControlName="stuToAddName" class="red-btn h-lg" type="text" placeholder=" nombre y apellido">
          <input formControlName="stuToAddWeight" class="red-btn h-lg" type="text" placeholder=" peso">
          <input formControlName="stuToAddAge" class="red-btn h-lg" type="date" placeholder=" fecha de nacimiento">
          <select class="red-btn h-lg" formControlName="stuToAddGender">
@@ -129,8 +124,7 @@
          <textarea formControlName="stuToAddComents" class="red-btn h-lg" type="text" placeholder=" comentarios"></textarea>
 
          <button *ngIf="(
-                          !validStuToAddName 
-                          && !validStuToAddSurname 
+                          !validStuToAddName
                           && !validStuToAddWeight 
                           && !validStuToAddAge 
                           && validStuToAddGender 
@@ -151,8 +145,7 @@
     <form class="row" [formGroup]="editStudentForm" (ngSubmit)="saveEditStudent()">
       <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
       
-      <input formControlName="stuToEditName" class="red-btn h-lg" type="text" placeholder=" nombre/s">
-      <input formControlName="stuToEditSurname" class="red-btn h-lg" type="text" placeholder=" apellido/s">
+      <input formControlName="stuToEditName" class="red-btn h-lg" type="text" placeholder=" nombre y apellido">
       <input formControlName="stuToEditWeight" class="red-btn h-lg" type="text" placeholder=" peso">
       <input formControlName="stuToEditAge" class="red-btn h-lg" type="date" placeholder=" fecha de nacimiento">
       <select class="red-btn h-lg" formControlName="stuToEditGender">
@@ -179,7 +172,6 @@
 
       <button *ngIf="(
                        !validStuToEditName 
-                       && !validStuToEditSurname 
                        && !validStuToEditWeight 
                        && !validStuToEditAge
                        && !validStuToEditSport 

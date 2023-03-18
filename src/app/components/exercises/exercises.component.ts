@@ -67,6 +67,11 @@ search(searchValue:string){
   this.searchValue=searchValue;
 }
 
+getUnsafeTipUrlByYoutubeId(youtubeId:string){
+   
+  return 'https://www.youtube-nocookie.com/embed/' + youtubeId+'?modestbranding=1&rel=0&iv_load_policy=3&showinfo=0';
+   
+  }
 
 ////////////////////////////////////////////////////////////////
   createAddExerciseForm(){

@@ -64,12 +64,15 @@ pexToEditType
 -->
 
 <ng-template #addPexerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+   
       <form class="row" [formGroup]="addPexerciseForm" (ngSubmit)="saveAddPexercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+        <h3 class="text-title" style="background-color: black;">AGREGANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+        <input #searchInput (keyup)="search(searchInput.value)" type="text" class="red-btn" placeholder="BUSCAR">
+        
         <select class="red-btn h-lg" formControlName="pexToAddExerciseId">
             <option value="" selected disabled hidden>EJERCICIO</option>
-            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList">
+            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList | search:this.searchValue">
                 {{exercise.name}}
             </option>
         </select>
@@ -104,17 +107,20 @@ pexToEditType
                 {{type}}
             </option>
         </select>
+        <h3 class="text-title" style="background-color: black;">------</h3>
        <button (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 
 
 <ng-template #editPexerciseModal let-modal>
-    <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+    
       <form class="row" [formGroup]="editPexerciseForm" (ngSubmit)="saveEditPexercise()">
         <button type="button" class="red-btn" (click)="modal.dismiss('Cross click')">X</button>
+        <h3 class="text-title" style="background-color: black;">EDITANDO EJERCICIO PARA {{this.studentByStudentId?.name}}</h3>
+        <input #searchInput (keyup)="search(searchInput.value)" type="text" class="red-btn" placeholder="BUSCAR">
         <select class="red-btn h-lg" formControlName="pexToEditExerciseId">
             <option value="" selected disabled hidden>EJERCICIO</option>
-            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList">
+            <option [value]="exercise.id" *ngFor="let exercise of this.exerciseList | search:this.searchValue">
                 {{exercise.name}}
             </option>
         </select>
@@ -125,6 +131,7 @@ pexToEditType
                 {{load}}
             </option>
         </select>
+        <h3 class="text-title" style="background-color: black;">------</h3>
        <button (click)="modal.close('Save click')" type="submit"  class="btn red-btn">LISTO</button>
     </form>
 </ng-template> 

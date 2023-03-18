@@ -69,6 +69,14 @@
   margin-bottom: auto;
 }
 
+.text-danger{
+  color: red;
+  text-align: left;
+  font-style: italic;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .red-border-text{
 
   text-shadow:
